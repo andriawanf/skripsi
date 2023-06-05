@@ -54,12 +54,12 @@ class TableRiwayatPengajuanCutiUser extends Component
                 $query->whereHas('user', function ($subQuery) {
                     $subQuery->where('name', 'like', '%' . $this->searchTerm . '%');
                 })
-                ->orWhereHas('kategori', function ($subQuery) {
-                    $subQuery->where('nama', 'like', '%' . $this->searchTerm . '%');
-                })
-                ->orWhereHas('subkategori', function ($subQuery) {
-                    $subQuery->where('nama_subkategoris', 'like', '%' . $this->searchTerm . '%');
-                })->orWhere('status','like',"%".$this->searchTerm."%");
+                    ->orWhereHas('kategori', function ($subQuery) {
+                        $subQuery->where('nama', 'like', '%' . $this->searchTerm . '%');
+                    })
+                    ->orWhereHas('subkategori', function ($subQuery) {
+                        $subQuery->where('nama_subkategoris', 'like', '%' . $this->searchTerm . '%');
+                    })->orWhere('status', 'like', "%" . $this->searchTerm . "%");
             });
         }
 
@@ -86,34 +86,48 @@ class TableRiwayatPengajuanCutiUser extends Component
         $namaKategori = $kategori->nama;
         $namaSubkategori = $subkategori->nama_subkategoris;
 
-        if ($subkategori->nama_subkategoris == 'Cuti Bersalin') {
+        if ($subkategori->nama_subkategoris === 'Cuti Melahirkan') {
             $templatePath = public_path('templates/laporan_cuti_melahirkan.docx');
-        }elseif ($subkategori->nama_subkategoris == 'Cuti Sakit') {
+        } elseif ($subkategori->nama_subkategoris === 'Cuti Sakit') {
             $templatePath = public_path('templates/laporan_cuti_guru.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
         }
+
+        // format tanggal
+        $dateStart = $cuti->tanggal_mulai;
+        $timestamp = strtotime($dateStart);
+        $carbonDate = Carbon::parse($timestamp)->locale('id');
+        $formattedDate = $carbonDate->format('d F Y');
+        $dateEnd = $cuti->tanggal_akhir;
+        $timechages = strtotime($dateEnd);
+        $carbonDateEnd = Carbon::parse($timechages);
+        $formattedDateEnd = $carbonDateEnd->format('d F Y');
 
         $templateProcessor = new TemplateProcessor($templatePath);
         $templateProcessor->setValue('nama_guru', $cutiGuru->name);
         $templateProcessor->setValue('nip_guru', $cutiGuru->nip);
         $templateProcessor->setValue('jabatan_guru', $cutiGuru->jabatan);
         $templateProcessor->setValue('pangkat_guru', $cutiGuru->pangkat);
-        $templateProcessor->setValue('tanggal_mulai', $cuti->tanggal_mulai);
-        $templateProcessor->setValue('tanggal_akhir', $cuti->tanggal_akhir);
+        $templateProcessor->setValue('tanggal_mulai', $formattedDate);
+        $templateProcessor->setValue('tanggal_akhir', $formattedDateEnd);
         $templateProcessor->setValue('durasi_cuti', $cuti->durasi);
         $templateProcessor->setValue('alasan_cuti', $cuti->alasan);
+        $templateProcessor->setValue('status_cuti', $cuti->status);
         $templateProcessor->setValue('kategori_cuti', $cuti->kategori->nama);
         $templateProcessor->setValue('subkategori_cuti', $cuti->subkategori->nama_subkategoris);
         // $templateProcessor->setImageValue('ttd', array($leave->signature, 'width' => 200, 'height' => 200, 'ratio' => false));
         $leader = User::where('role', 'kepala_sekolah')->first();
         if ($cuti->status == 'Setuju') {
-            $tanggalUpdate = $cuti->updated_at->format('d-m-Y');
-            $templateProcessor->setValue('tanggal_konfirmasi', $tanggalUpdate);
+            $tanggalUpdate = $cuti->updated_at;
+            $timestamp = strtotime($tanggalUpdate);
+            $carbonDate = Carbon::parse($timestamp)->locale('id');
+            $formattedDate = $carbonDate->format('d F Y');
+            $templateProcessor->setValue('tanggal_konfirmasi', $formattedDate);
         }
         $templateProcessor->setValue('kepala_sekolah', $leader->jabatan);
         $templateProcessor->setValue('nama_kepalaSekolah', $leader->name);
         // Tambahkan penyesuaian lain sesuai dengan atribut yang ada dalam template laporan
 
-        $filename = 'laporan_cuti_guru_' . $cuti->user->name . '.docx';
+        $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $cuti->subkategori->nama_subkategoris . '.docx';
         $templateProcessor->saveAs($filename);
 
         return Response::download($filename)->deleteFileAfterSend(true);

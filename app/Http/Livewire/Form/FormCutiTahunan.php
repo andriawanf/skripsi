@@ -22,10 +22,9 @@ class FormCutiTahunan extends Component
 
     public function render()
     {
-        $dataGurus = Guru::all();
-        $dataUsers = User::all();
+        $dataUsers = User::where('role', 'user')->get();
         $kategoris = Kategori::all();
-        return view('livewire.form.form-cuti-tahunan', compact('dataGurus', 'dataUsers', 'kategoris'));
+        return view('livewire.form.form-cuti-tahunan', compact('dataUsers', 'kategoris'));
     }
     // public function mount()
     // {

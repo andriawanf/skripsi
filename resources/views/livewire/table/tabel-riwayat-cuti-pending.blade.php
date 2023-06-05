@@ -74,7 +74,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $item->kategori->nama }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 {{ optional($item->subkategori)->nama_subkategoris ?? '-' }}
                             </td>
                             <td class="px-6 py-4">
@@ -86,7 +86,7 @@
                             <td class="px-6 py-4">
                                 {{ $item->durasi }} Hari
                             </td>
-                            <td class="px-6 py-4 line-clamp-1">
+                            <td class="px-6 py-4 line-clamp-5 w-72">
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4">
@@ -122,7 +122,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $item->kategori->nama }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 {{ optional($item->subkategori)->nama_subkategoris ?? '-' }}
                             </td>
                             <td class="px-6 py-4">
@@ -134,7 +134,7 @@
                             <td class="px-6 py-4">
                                 {{ $item->durasi }} Hari
                             </td>
-                            <td class="px-6 py-4 line-clamp-2">
+                            <td class="px-6 py-4 line-clamp-5 w-72">
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4">
