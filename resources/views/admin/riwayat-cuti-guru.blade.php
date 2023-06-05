@@ -40,9 +40,6 @@
         </div>
 
         <div class="font-poppins mb-12 sm:mb-20">
-            <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-                <h1 class="font-semibold text-lg">Riwayat Pending Cuti Guru</h1>
-            </div>
 
             <div class="">
                 @if (session()->has('message'))

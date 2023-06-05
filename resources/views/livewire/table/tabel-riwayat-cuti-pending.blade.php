@@ -2,7 +2,7 @@
 
     <div>
         <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-            <h1 class="font-semibold text-lg">Riwayat Cuti Guru</h1>
+            <h1 class="font-semibold text-lg">Riwayat Pending Cuti Guru</h1>
             <div>
                 <label for="default-search"
                     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>

@@ -63,39 +63,14 @@
                 </li>
             @endif
             <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                    <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Pengajuan Cuti</span>
-                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                    @if (Auth::user()->role == 'user')
-                        <li>
-                            <a href="{{ route('cuti-tahunan') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ajukan
-                                Cuti</a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'kepala_sekolah')
-                        <li>
-                            <a href="{{ route('tambah-kategori') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tambah
-                                Data Kategori</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('tambah-subkategori') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tambah
-                                Data Sub-kategori</a>
-                        </li>
-                    @endif
-                </ul>
+                @if (Auth::user()->role == 'user')
+                    <a href="{{ route('cuti-tahunan') }}"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Pengajuan Cuti</span>
+                    </a>
+                @endif
             </li>
             @if (Auth::user()->role == 'user')
                 <li>
@@ -113,6 +88,32 @@
                         <img src="{{ url('images/envelope.svg') }}" alt="">
                         <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Cuti Guru</span>
                     </a>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Data Cuti</span>
+                        <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                        <li>
+                            <a href="{{ route('tambah-kategori') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                Data Kategori Cuti</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tambah-subkategori') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                Data Sub-kategori Cuti</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('data-guru') }}"

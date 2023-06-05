@@ -12,7 +12,7 @@ class CardSisaCutiUser extends Component
 
     public function mount()
     {
-        $this->user = User::first();
+        $this->user = Auth::user();
     }
     
     public function render()

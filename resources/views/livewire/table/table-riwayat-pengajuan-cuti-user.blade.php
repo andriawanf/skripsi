@@ -1,33 +1,43 @@
 <form action="" class="font-poppins">
 
-    <div class="mb-6 flex flex-row justify-between items-end">
-        <div>
-            <h1 class="font-poppins font-semibold text-lg text-gray-900">Riwayat Pengajuan Cuti</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">List dari riwayat pengajuan cuti anda</p>
-        </div>
-        <div class="flex flex-row items-center space-x-4 mb-3">
-            <a href="{{ route('download-riwayat-cuti-guru') }}"
-                class="text-center font-medium text-gray-900 py-2 px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
-                <p class="font-normal text-xs">Cetak laporan cuti</p>
-            </a>
+    @if (Request::is('riwayat-pengajuan-cuti'))
+        <div class="mb-6 flex flex-row justify-between items-end">
             <div>
-                <label for="default-search"
-                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+                <h1 class="font-poppins font-semibold text-lg text-gray-900">Riwayat Pengajuan Cuti</h1>
+                <p class="font-poppins font-medium text-sm text-gray-900 mt-1">List dari riwayat pengajuan cuti anda</p>
+            </div>
+            <div class="flex flex-row items-center space-x-4 mb-3">
+                <a href="{{ route('download-riwayat-cuti-guru') }}"
+                    class="text-center font-medium text-gray-900 py-2 px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
+                    <p class="font-normal text-xs">Cetak laporan cuti</p>
+                </a>
+                <div>
+                    <label for="default-search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="search" wire:model='searchTerm'
+                            class="block w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Search Mockups, Logos...">
                     </div>
-                    <input type="search" wire:model='searchTerm'
-                        class="block w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
-                        placeholder="Search Mockups, Logos...">
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="flex justify-between items-center w-full mb-3 text-[10px]">
+            <h1 class="font-semibold text-lg">Riwayat Pengajuan Cuti</h1>
+            <a href="{{route('riwayat-cuti')}}" class="flex gap-1 justify-center items-center text-gray-400 hover:text-gray-900">
+                <p class="font-normal text-xs">Lihat</p>
+                <i class='bx bx-right-arrow-alt'></i>
+            </a>
+        </div>
+    @endif
     <div class="relative w-full overflow-x-auto shadow-md rounded-lg sm:rounded-lg">
         <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -41,22 +51,22 @@
                     <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('kategori_id')">
                         Kategori {!! $orderColumn == 'kategori_id' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('subkategori_id')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('subkategori_id')">
                         Sub-Kategori {!! $orderColumn == 'subkategori_id' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('tanggal_mulai')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('tanggal_mulai')">
                         Tanggal Mulai {!! $orderColumn == 'tanggal_mulai' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('tanggal_akhir')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('tanggal_akhir')">
                         Tanggal Akhir {!! $orderColumn == 'tanggal_akhir' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('durasi')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('durasi')">
                         Total Cuti {!! $orderColumn == 'durasi' ? $sortLink : '' !!}
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                         Alasan
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('status')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('status')">
                         status {!! $orderColumn == 'status' ? $sortLink : '' !!}
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -121,10 +131,13 @@
             </tbody>
         </table>
     </div>
+    @if (Request::is('riwayat-pengajuan-cuti'))
     <div class="flex items-center justify-end py-4 px-4 mt-2" aria-label="Table navigation">
         Menampilkan {{ $cutiGuru->count() }} dari {{ $cutiGuruTotal }} hasil
         {{ $cutiGuru->links() }}
     </div>
+        
+    @endif
 
 
 
