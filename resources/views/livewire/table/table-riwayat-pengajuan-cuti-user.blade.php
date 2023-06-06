@@ -103,7 +103,7 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->durasi }} Hari
                             </td>
-                            <td class="px-6 py-4 line-clamp-5 font-medium text-gray-900 w-72">
+                            <td class="px-6 py-4 line-clamp-5 font-medium text-gray-900 min-w-fit max-w-2xl ">
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

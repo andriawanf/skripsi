@@ -143,7 +143,7 @@
                             @if ($item->status == 'Konfirmasi')
                                 @if (Auth::user()->role == 'kepala_sekolah')
                                     <td class="px-6 py-4 flex flex-col gap-2">
-                                        <button type="submit" wire:click='approve({{ $item->id }})'
+                                        <button type="submit" wire:click.prevent='approve({{ $item->id }})'
                                             class="px-4 py-2 bg-blue-500 rounded-lg font-medium text-white hover:underline">Setuju</button>
                                         <button type="submit" wire:click='reject({{ $item->id }})'
                                             class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline">Tolak</button>

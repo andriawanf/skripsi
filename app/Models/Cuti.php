@@ -22,6 +22,7 @@ class Cuti extends Model
         'status',
         'tanggal_mulai',
         'tanggal_akhir',
+        'file_ttd',
     ];
 
     public function guru()

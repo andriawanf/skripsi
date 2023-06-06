@@ -43,13 +43,7 @@
                 {{ $message }}</p>
         @enderror
     </div>
-    {{-- <div class="mb-6">
-        <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi
-            Cuti</label>
-        <input type="number" name="durasi_cuti" id="durasi_cuti"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="1 - 12" required>
-    </div> --}}
+
     <div class="mb-6">
         <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
             Cuti</label>
@@ -75,6 +69,14 @@
                 {{ $message }}</p>
         @enderror
     </div>
+    
+    <div class="mb-6">
+        <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Tanda Tangan</label>
+        <input wire:model='file_tanda_tangan'
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        id="foto" type="file">
+    </div>
+
     <div class="mb-6">
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alasan</label>
         <textarea id="alasanCuti" rows="4" wire:model='alasanCuti' name="alasanCuti"
@@ -103,7 +105,7 @@
 
     document.getElementById('signatureInput').value = signaturePad.toDataURL();
 
-    document.getElementById('cancelSignature').addEventListener('click', function(event){
+    document.getElementById('cancelSignature').addEventListener('click', function(event) {
         event.preventDefault();
         signaturePad.clear();
         document.getElementById('signatureInput').value = '';

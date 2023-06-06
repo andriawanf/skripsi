@@ -29,8 +29,8 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // guru route
-Route::group(['prefix' => 'guru', 'middleware' => ['auth']], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/form-cuti-tahunan', function () {
         return view('general.cuti-tahunan');
     })->name('cuti-tahunan');

@@ -11,14 +11,16 @@ use App\Notifications\NotifikasiPengajuanCuti;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class FormCutiTahunan extends Component
 {
-    public $dataUser, $kategori_id, $subkategori_id, $tanggal_mulais, $tanggal_akhirs, $alasanCuti, $status, $signature;
+    public $dataUser, $kategori_id, $subkategori_id, $tanggal_mulais, $tanggal_akhirs, $alasanCuti, $status, $signature, $file_tanda_tangan;
     public $subkategoriList = [];
 
     use WithPagination;
+    use WithFileUploads;
 
     public function render()
     {
@@ -42,6 +44,7 @@ class FormCutiTahunan extends Component
             'tanggal_mulais' => 'required|date',
             'tanggal_akhirs' => 'required|date|after_or_equal:tanggal_mulais',
             'alasanCuti' => 'required',
+            'file_tanda_tangan' => 'required|image|mimes:png',
         ];
     }
 
@@ -56,6 +59,7 @@ class FormCutiTahunan extends Component
             // 'durasi_cuti' => 'required',
             'tanggal_mulais' => 'required|date',
             'tanggal_akhirs' => 'required|date|after_or_equal:tanggal_mulais',
+            'file_tanda_tangan' => 'required|image|mimes:png',
         ], [
             'dataUser.required' => 'Isi nama Guru dengan benar!',
             'kategori_id.required' => 'Isi kategori dengan benar!',
@@ -63,6 +67,7 @@ class FormCutiTahunan extends Component
             'alasanCuti.required' => 'Isi alasan dengan benar!',
             'tanggal_mulais.required' => 'Isi tanggal mulai dengan benar!',
             'tanggal_akhirs.required' => 'Isi tanggal akhir dengan benar!',
+            'file_tanda_tangan.required' => 'file foto harus dalam bentuk .PNG!',
         ]);
 
         // Simpan data cuti ke database
@@ -70,6 +75,8 @@ class FormCutiTahunan extends Component
         $start = Carbon::parse($this->tanggal_mulais);
         $end = Carbon::parse($this->tanggal_akhirs);
         $durasiCuti = $end->diffInDays($start) + 1;
+        // simpan foto ttd
+        $file_tanda_tangan = $this->file_tanda_tangan->storeAs('public/foto_ttd_guru/', $this->file_tanda_tangan->getClientOriginalName());
 
         $pengajuanCuti = Cuti::create([
             "user_id" => $this->dataUser,
@@ -79,11 +86,13 @@ class FormCutiTahunan extends Component
             "tanggal_akhir" => $this->tanggal_akhirs,
             "alasan" => $this->alasanCuti,
             "durasi" => $durasiCuti,
+            "file_ttd" => $this->file_tanda_tangan->getClientOriginalName(),
         ]);
 
         // Kirim notifikasi ke admin
+        $guru = Auth::user()->name;
         $admin = User::where('role', 'admin')->first();
-        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari Guru'));
+        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari' .$guru));
         
         // Tampilkan notifikasi sukses
         session()->flash('message', 'Pengajuan cuti berhasil disimpan dan sedang dalam proses.');

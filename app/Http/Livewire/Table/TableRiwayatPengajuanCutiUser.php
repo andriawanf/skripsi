@@ -114,6 +114,12 @@ class TableRiwayatPengajuanCutiUser extends Component
         $templateProcessor->setValue('status_cuti', $cuti->status);
         $templateProcessor->setValue('kategori_cuti', $cuti->kategori->nama);
         $templateProcessor->setValue('subkategori_cuti', $cuti->subkategori->nama_subkategoris);
+        $templateProcessor->setImageValue('tanda_tangan', [
+            'path' => 'storage/foto_ttd_guru/' .$cuti->file_ttd,
+            'width' => 150,
+            'height' => 75,
+            'ratio' => false,
+        ]);
         // $templateProcessor->setImageValue('ttd', array($leave->signature, 'width' => 200, 'height' => 200, 'ratio' => false));
         $leader = User::where('role', 'kepala_sekolah')->first();
         if ($cuti->status == 'Setuju') {
@@ -125,6 +131,7 @@ class TableRiwayatPengajuanCutiUser extends Component
         }
         $templateProcessor->setValue('kepala_sekolah', $leader->jabatan);
         $templateProcessor->setValue('nama_kepalaSekolah', $leader->name);
+        $templateProcessor->setValue('nip_kepalaSekolah', $leader->nip);
         // Tambahkan penyesuaian lain sesuai dengan atribut yang ada dalam template laporan
 
         $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $cuti->subkategori->nama_subkategoris . '.docx';
