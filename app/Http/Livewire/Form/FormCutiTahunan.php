@@ -92,7 +92,7 @@ class FormCutiTahunan extends Component
         // Kirim notifikasi ke admin
         $guru = Auth::user()->name;
         $admin = User::where('role', 'admin')->first();
-        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari' .$guru));
+        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari ' .$guru));
         
         // Tampilkan notifikasi sukses
         session()->flash('message', 'Pengajuan cuti berhasil disimpan dan sedang dalam proses.');

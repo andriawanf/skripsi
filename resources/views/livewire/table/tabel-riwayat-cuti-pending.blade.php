@@ -134,7 +134,7 @@
                             <td class="px-6 py-4">
                                 {{ $item->durasi }} Hari
                             </td>
-                            <td class="px-6 py-4 line-clamp-5 w-72">
+                            <td class="px-6 py-4 line-clamp-5 w-64">
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4">

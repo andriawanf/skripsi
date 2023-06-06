@@ -120,6 +120,12 @@ class TableRiwayatPengajuanCutiUser extends Component
             'height' => 75,
             'ratio' => false,
         ]);
+        $templateProcessor->setImageValue('tanda_tangan_kpsekolah', [
+            'path' => 'storage/foto_ttd_guru/ttd.png',
+            'width' => 150,
+            'height' => 75,
+            'ratio' => false,
+        ]);
         // $templateProcessor->setImageValue('ttd', array($leave->signature, 'width' => 200, 'height' => 200, 'ratio' => false));
         $leader = User::where('role', 'kepala_sekolah')->first();
         if ($cuti->status == 'Setuju') {
