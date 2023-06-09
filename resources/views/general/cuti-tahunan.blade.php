@@ -30,7 +30,12 @@
         @if (session()->has('message'))
         <div class="p-4 mb-4 text-sm text-gray-900 rounded-lg bg-[#8AC054] bg-opacity-30" role="alert">
             <span class="font-medium">Sukses! </span> {{ session('message') }}
-          </div>
+        </div>
+        @endif
+        @if (session()->has('error'))
+        <div class="p-4 mb-4 text-sm text-gray-900 rounded-lg bg-red-600/25" role="alert">
+            <span class="font-medium">Gagal! </span> {{ session('error') }}
+        </div>
         @endif
         <div class="mb-6">
             <h1 class="font-poppins font-semibold text-lg text-gray-900">Pengajuan Cuti Tahunan</h1>

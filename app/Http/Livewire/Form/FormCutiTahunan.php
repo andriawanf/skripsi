@@ -50,6 +50,17 @@ class FormCutiTahunan extends Component
 
     public function submitForm()
     {
+        // Cek apakah ada pengajuan cuti yang masih pending
+        $pendingCuti = Cuti::where('user_id', $this->dataUser)
+            ->where('status', 'Pending')
+            ->orWhere('status', 'Konfirmasi')
+            ->count();
+
+        if ($pendingCuti > 0) {
+            session()->flash('error', 'Anda masih memiliki pengajuan cuti yang masih menunggu persetujuan.');
+            return redirect()->route('cuti-tahunan');
+        }
+
         // Validasi input
         $this->validate([
             'dataUser' => 'required',
@@ -69,6 +80,23 @@ class FormCutiTahunan extends Component
             'tanggal_akhirs.required' => 'Isi tanggal akhir dengan benar!',
             'file_tanda_tangan.required' => 'file foto harus dalam bentuk .PNG!',
         ]);
+
+        // Cek apakah tanggal cuti sudah diambil sebelumnya
+        $existingCuti = Cuti::where('user_id', $this->dataUser)
+            ->where(function ($query) {
+                $query->whereBetween('tanggal_mulai', [$this->tanggal_mulais, $this->tanggal_akhirs])
+                    ->orWhereBetween('tanggal_akhir', [$this->tanggal_mulais, $this->tanggal_akhirs])
+                    ->orWhere(function ($query) {
+                        $query->where('tanggal_mulai', '<=', $this->tanggal_mulais)
+                            ->where('tanggal_akhir', '>=', $this->tanggal_akhirs);
+                    });
+            })
+            ->count();
+
+        if ($existingCuti > 0) {
+            session()->flash('error', 'Anda sudah pernah mengambil cuti pada tanggal tersebut.');
+            return redirect()->route('cuti-tahunan');
+        }
 
         // Simpan data cuti ke database
         // $cuti = new Cuti();
@@ -92,8 +120,8 @@ class FormCutiTahunan extends Component
         // Kirim notifikasi ke admin
         $guru = Auth::user()->name;
         $admin = User::where('role', 'admin')->first();
-        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari ' .$guru));
-        
+        $admin->notify(new NotifikasiPengajuanCuti('Terdapat pengajuan cuti baru dari ' . $guru));
+
         // Tampilkan notifikasi sukses
         session()->flash('message', 'Pengajuan cuti berhasil disimpan dan sedang dalam proses.');
         // Reset input form
