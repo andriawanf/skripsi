@@ -6,12 +6,12 @@
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari
             </p>
         </div>
-        <div class="flex-row justify-center items-center space-x-3 p-2 mt-2 hidden sm:flex relative">
+        <div class="flex-row justify-center items-center space-x-2 p-2 mt-2 hidden sm:flex relative">
             {{-- <i class='bx bxs-bell bx-sm text-gray-900'></i> --}}
             <button type="button"
-                class="relative inline-flex items-center text-sm font-medium text-center text-white mr-2"
+                class="relative inline-flex items-center text-sm font-medium text-center text-white mr-2 p-2 bg-white shadow-sm border border-gray-300 rounded-lg"
                 data-popover-target="data-notif">
-                <i class='bx bxs-bell bx-sm text-gray-900'></i>
+                <i class='bx bxs-bell text-xl text-gray-900'></i>
                 <span class="sr-only">Notifications</span>
                 <div
                     class="absolute inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-600 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">

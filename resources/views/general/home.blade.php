@@ -43,7 +43,7 @@
 
         <div class="font-poppins">
 
-            <div class="sm:hidden">
+            <div class="sm:hidden block">
                 <livewire:card.card-list-riwayat-cuti-user />
             </div>
             <div class="hidden sm:block">
