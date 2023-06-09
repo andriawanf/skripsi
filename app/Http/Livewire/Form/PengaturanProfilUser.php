@@ -15,6 +15,8 @@ class PengaturanProfilUser extends Component
     public function mount()
     {
         $this->user = User::all();
+        $this->nama = Auth::user()->name;
+        $this->emailUser = Auth::user()->email;
     }
 
     public function render()
