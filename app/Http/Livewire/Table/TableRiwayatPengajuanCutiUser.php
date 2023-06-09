@@ -121,7 +121,7 @@ class TableRiwayatPengajuanCutiUser extends Component
             'ratio' => false,
         ]);
         $templateProcessor->setImageValue('tanda_tangan_kpsekolah', [
-            'path' => 'storage/foto_ttd_guru/ttd.png',
+            'path' => 'storage/foto_ttd_guru/'.$cuti->file_ttd_kepsek,
             'width' => 150,
             'height' => 75,
             'ratio' => false,
