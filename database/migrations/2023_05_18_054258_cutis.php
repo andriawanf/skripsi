@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('durasi')->nullable();
             $table->string('status')->default('Pending');
             $table->string('file_ttd');
+            $table->string('file_ttd_kepsek')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('kategori_id')->references('id')->on('kategoris');

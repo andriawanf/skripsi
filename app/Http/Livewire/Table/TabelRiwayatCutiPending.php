@@ -9,11 +9,17 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class TabelRiwayatCutiPending extends Component
 {
     use WithPagination;
+    use WithFileUploads;
+
+    public $showModal = false;
+    public $fotoTandaTangan;
+    public $cutiId;
     public $perPage = 5;
     public $cutiGuruTotal;
     public $orderColumn = "user_id";
@@ -91,17 +97,42 @@ class TabelRiwayatCutiPending extends Component
         return view('livewire.table.tabel-riwayat-cuti-pending', compact('cutiPending', 'cutiKonfirmasi'));
     }
 
-    // approval kepala sekolah
-    public function approve($id)
+    public function prosesSetuju($cutiId)
     {
-        $cuti = Cuti::findOrFail($id);
+        $cuti = Cuti::findOrFail($cutiId);
+
+        if ($cuti->status === 'Konfirmasi' && Auth::user()->role == 'kepala_sekolah') {
+            $this->cutiId = $cutiId;
+            $this->showModal = true;
+        }
+    }
+
+    public function batal()
+    {
+        $this->showModal = false;
+        $this->reset(['fotoTandaTangan', 'cutiId']);
+    }
+
+    // approval kepala sekolah
+    public function approve()
+    {
+        $this->validate([
+            'fotoTandaTangan' => 'required|image|mimes:png',
+        ]);
+
+        $cuti = Cuti::findOrFail($this->cutiId);
 
         // Kurangi saldo cuti guru jika status cuti disetujui oleh kepala sekolah
         if (auth()->user()->role == 'kepala_sekolah' && $cuti->status == 'Konfirmasi') {
             $guru = User::find($cuti->user_id);
 
+            // Cuti melahirkan, tidak perlu mengurangi saldo cuti
             if ($cuti->subkategori->nama_subkategoris === 'Cuti Melahirkan') {
-                // Cuti melahirkan, tidak perlu mengurangi saldo cuti
+
+                // simpan foto ttd
+                $fotoTandaTanganPath = $this->fotoTandaTangan->storeAs('public/foto_ttd_guru/', $this->fotoTandaTangan->getClientOriginalName());
+
+                $cuti->file_ttd_kepsek = $this->fotoTandaTangan->getClientOriginalName();
                 $cuti->status = 'Setuju';
                 $cuti->save();
 
@@ -113,10 +144,16 @@ class TabelRiwayatCutiPending extends Component
                 session()->flash('message', 'Pengajuan cuti melahirkan berhasil disetujui.');
                 return redirect()->route('riwayat-cuti-guru');
             } else {
+                // Saldo cuti cukup, mengurangi saldo cuti guru
                 if ($guru->saldo_cuti >= $cuti->durasi) {
-                    // Saldo cuti cukup, mengurangi saldo cuti guru
+
+                    // simpan foto ttd
+                    $fotoTandaTanganPath = $this->fotoTandaTangan->storeAs('public/foto_ttd_guru/', $this->fotoTandaTangan->getClientOriginalName());
+
+                    $cuti->file_ttd_kepsek = $this->fotoTandaTangan->getClientOriginalName();
                     $cuti->status = 'Setuju';
                     $cuti->save();
+
 
                     // Kirim notifikasi ke guru
                     $message = 'Pengajuan cuti Anda telah disetujui oleh kepala sekolah';
@@ -127,6 +164,8 @@ class TabelRiwayatCutiPending extends Component
                     $sisaCuti = $guru->saldo_cuti - $cuti->durasi;
                     $guru->saldo_cuti = $sisaCuti;
                     $guru->save();
+
+                    $this->showModal = false;
 
                     session()->flash('message', 'Pengajuan cuti berhasil disetujui.');
                     return redirect()->route('riwayat-cuti-guru');
@@ -177,13 +216,13 @@ class TabelRiwayatCutiPending extends Component
             return redirect()->route('riwayat-cuti-guru');
         }
     }
-    
+
     public function reject($id)
     {
         $cuti = Cuti::findOrFail($id);
         $cuti->status = 'Tolak';
         $cuti->save();
-        
+
         session()->flash('success', 'Pengajuan cuti guru berhasil ditolak.');
         return redirect()->route('riwayat-cuti-guru');
     }
