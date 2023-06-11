@@ -104,8 +104,8 @@
                                 </td>
                             @else
                                 <td class="px-6 py-4">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Download</a>
+                                    <button wire:click.prevent='exportDocx({{ $item->id }})'
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Download</button>
                                 </td>
                             @endif
                         </tr>
