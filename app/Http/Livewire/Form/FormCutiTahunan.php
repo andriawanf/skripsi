@@ -17,6 +17,7 @@ use Livewire\WithPagination;
 class FormCutiTahunan extends Component
 {
     public $dataUser, $kategori_id, $subkategori_id, $tanggal_mulais, $tanggal_akhirs, $alasanCuti, $status, $signature, $file_tanda_tangan;
+    public $fileBuktiCuti;
     public $subkategoriList = [];
 
     use WithPagination;
@@ -44,6 +45,7 @@ class FormCutiTahunan extends Component
             'tanggal_mulais' => 'required|date',
             'tanggal_akhirs' => 'required|date|after_or_equal:tanggal_mulais',
             'alasanCuti' => 'required',
+            'file_bukti_cuti' => 'required|file|mimes:pdf',
             'file_tanda_tangan' => 'required|image|mimes:png',
         ];
     }
@@ -67,10 +69,10 @@ class FormCutiTahunan extends Component
             'kategori_id' => 'required',
             'subkategori_id' => 'nullable',
             'alasanCuti' => 'required',
-            // 'durasi_cuti' => 'required',
             'tanggal_mulais' => 'required|date',
             'tanggal_akhirs' => 'required|date|after_or_equal:tanggal_mulais',
             'file_tanda_tangan' => 'required|image|mimes:png',
+            'fileBuktiCuti' => 'required|file|mimes:pdf',
         ], [
             'dataUser.required' => 'Isi nama Guru dengan benar!',
             'kategori_id.required' => 'Isi kategori dengan benar!',
@@ -78,7 +80,12 @@ class FormCutiTahunan extends Component
             'alasanCuti.required' => 'Isi alasan dengan benar!',
             'tanggal_mulais.required' => 'Isi tanggal mulai dengan benar!',
             'tanggal_akhirs.required' => 'Isi tanggal akhir dengan benar!',
-            'file_tanda_tangan.required' => 'file foto harus dalam bentuk .PNG!',
+            'fileBuktiCuti.required' => 'Pilih file bukti cuti!',
+            'fileBuktiCuti.file' => 'File bukti cuti harus dalam format yang valid!',
+            'fileBuktiCuti.mimes' => 'File bukti cuti harus dalam format PDF, PNG, JPG, JPEG, DOC, atau DOCX!',
+            'file_tanda_tangan.required' => 'Pilih file tanda tangan anda!',
+            'file_tanda_tangan.file' => 'File bukti cuti harus dalam format yang valid!',
+            'file_tanda_tangan.mimes' => 'File bukti cuti harus dalam format PNG!',
         ]);
 
         // Cek apakah tanggal cuti sudah diambil sebelumnya
@@ -103,8 +110,11 @@ class FormCutiTahunan extends Component
         $start = Carbon::parse($this->tanggal_mulais);
         $end = Carbon::parse($this->tanggal_akhirs);
         $durasiCuti = $end->diffInDays($start) + 1;
+
         // simpan foto ttd
         $file_tanda_tangan = $this->file_tanda_tangan->storeAs('public/foto_ttd_guru/', $this->file_tanda_tangan->getClientOriginalName());
+
+        $file_bukti_cuti_path = $this->fileBuktiCuti->storeAs('public/file_bukti/', $this->fileBuktiCuti->getClientOriginalName());
 
         $pengajuanCuti = Cuti::create([
             "user_id" => $this->dataUser,
@@ -114,6 +124,7 @@ class FormCutiTahunan extends Component
             "tanggal_akhir" => $this->tanggal_akhirs,
             "alasan" => $this->alasanCuti,
             "durasi" => $durasiCuti,
+            "file_bukti" => $this->fileBuktiCuti->getClientOriginalName(),
             "file_ttd" => $this->file_tanda_tangan->getClientOriginalName(),
         ]);
 

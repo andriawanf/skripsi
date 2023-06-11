@@ -1,4 +1,5 @@
-<form>
+<form enctype="multipart/form-data">
+    @csrf
     <div class="mb-6">
         <label for="kategori" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Guru</label>
         <select id="dataUser" wire:model='dataUser'
@@ -9,7 +10,7 @@
             @endforeach
         </select>
         @error('dataGuru')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
     </div>
@@ -24,7 +25,7 @@
             @endforeach
         </select>
         @error('kategori_id')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
     </div>
@@ -39,7 +40,7 @@
             @endforeach
         </select>
         @error('subkategori_id')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
     </div>
@@ -61,20 +62,35 @@
             </div>
         </div>
         @error('tanggal_mulais')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
         @error('tanggal_akhirs')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
     </div>
     
     <div class="mb-6">
+        <label for="fileBuktiCuti" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File Bukti</label>
+        <input wire:model='fileBuktiCuti' id="fileBuktiCuti" name="fileBuktiCuti"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        id="foto" type="file">
+        @error('fileBuktiCuti')
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                {{ $message }}</p>
+        @enderror
+    </div>
+
+    <div class="mb-6">
         <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Tanda Tangan</label>
         <input wire:model='file_tanda_tangan'
         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
         id="foto" type="file">
+        @error('file_tanda_tangan')
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                {{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mb-6">
@@ -83,7 +99,7 @@
             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Tuliskan alasan anda disini..."></textarea>
         @error('alasanCuti')
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
                 {{ $message }}</p>
         @enderror
     </div>
