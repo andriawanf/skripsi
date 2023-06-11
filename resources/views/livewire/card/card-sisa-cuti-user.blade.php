@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold">{{ $user->saldo_cuti }}</h1>
     <p class="text-xs font-semibold">Per Tahun</p>
 </div> --}}
-<div class="w-full h-auto relative overflow-hidden bg-gradient-to-tr from-[#B4E080] to-[#8AC054] rounded-2xl shadow-lg">
+<div class="w-full h-auto relative overflow-hidden bg-gradient-to-tr from-[#B4E080] to-[#8AC054] rounded-2xl shadow-md border border-[#8AC054]">
     <svg class="absolute bottom-0 left-0 mb-0" viewBox="0 0 375 283" fill="none"
         style="transform: scale(1.5); opacity: 0.2;">
         <rect x="180" y="230" width="152" height="152" rx="10" transform="rotate(-45 159.52 175)"

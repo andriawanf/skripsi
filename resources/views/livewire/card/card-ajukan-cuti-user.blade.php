@@ -1,4 +1,4 @@
-<div class="col-span-2 w-full relative p-4 rounded-xl font-poppins bg-white border border-gray-300 shadow-sm">
+<div class="col-span-2 w-full relative p-4 rounded-2xl font-poppins bg-white border border-gray-300 shadow-sm">
     <div class="relative w-full flex justify-between">
         <div>
             <h1 class="text-sm font-semibold">Gunakan CIGU,</h1>
