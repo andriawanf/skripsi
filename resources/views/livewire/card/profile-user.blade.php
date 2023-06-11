@@ -1,5 +1,5 @@
 <div
-    class="w-3/4 h-auto lg:flex flex-col justify-center items-center space-y-2 p-4 bg-gradient-to-tr from-[#B4E080] to-[#8AC054] rounded-3xl shadow-md hidden border border-[#8AC054]/50 relative overflow-hidden">
+    class="w-3/4 h-fit lg:flex flex-col justify-center items-center space-y-2 p-4 bg-gradient-to-tr from-[#B4E080] to-[#8AC054] rounded-3xl shadow-md hidden border border-[#8AC054]/50 relative overflow-hidden">
     @if (auth()->user()->foto == 'images/logo.png')
         <img src="{{ url('/' . auth()->user()->foto) }}" alt="foto profile"
             class="w-24 h-24 rounded-full object-cover border-2 border-[#1e1e1e] z-20">

@@ -1,7 +1,7 @@
 <header class="hidden sm:block sm:mb-7">
     <div class="flex flex-row justify-between items-start space-x-20">
         <div>
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Hallo, {{ Auth::user()->name }} 👋</h1>
+            <h1 class="font-poppins font-semibold text-2xl text-gray-900 capitalize">Hallo, {{ Auth::user()->name }} 👋</h1>
             <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Selamat datang di <span
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari
             </p>

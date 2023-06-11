@@ -39,14 +39,6 @@
         </div>
 
         <div class="font-poppins">
-            {{-- <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-                <h1 class="font-semibold text-lg">Riwayat Pengajuan Cuti</h1>
-                <a href="#" class="flex gap-1 justify-center items-center text-gray-400 hover:text-gray-900">
-                    <p class="font-normal text-xs">Lihat</p>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </a>
-            </div> --}}
-
             <div class="sm:hidden">
                 <livewire:card.card-list-riwayat-cuti-user />
             </div>

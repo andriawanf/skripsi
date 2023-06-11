@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('alasan');
             $table->string('durasi')->nullable();
             $table->string('status')->default('Pending');
+            $table->string('file_bukti');
             $table->string('file_ttd');
             $table->string('file_ttd_kepsek')->nullable();
             $table->timestamps();

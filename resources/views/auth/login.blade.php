@@ -120,9 +120,8 @@
                         <button type="submit"
                             class="text-gray-900 bg-gradient-to-r from-[#B4E080] to-[#8AC054] focus:ring-4 focus:outline-none focus:ring-gren-300 font-medium rounded-xl text-sm w-full px-5 py-2.5 text-center">Submit</button>
                     </form>
-                    <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                        Don't have an account ? <a
-                            class="cursor-pointer text-[#B4E080] hover:text-[#8AC054]">Register</a>
+                    <div class="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
+                        Don't have an account ? <a href="{{route('register')}}" class="cursor-pointer text-[#B4E080] hover:text-[#8AC054]">Register</a>
                     </div>
                 </div>
             </div>
@@ -136,10 +135,6 @@
                     <p class="text-2xl mt-4">Inovasi Cerdas untuk Kemudahan Pengajuan Cuti Guru Mts At-Tarbiyah Gunungsari.</p>
                 </div>
             </div>
-            {{-- <div class="max-w-full relative">
-                <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
-                <img src="{{ url('/images/bg-5.jpeg') }}" alt="" class="bg-cover h-full">
-            </div> --}}
         </div>
     </div>
 
