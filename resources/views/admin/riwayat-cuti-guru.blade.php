@@ -50,10 +50,10 @@
             <div class="">
                 @if (session()->has('message'))
                     <div id="toast-default"
-                        class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                        class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow"
                         role="alert">
                         <div
-                            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
+                            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"

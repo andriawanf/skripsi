@@ -24,6 +24,8 @@ class User extends Authenticatable
         'foto' => 'images/logo.png',
     ];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     protected $fillable = [
         'name',
         'nip',
