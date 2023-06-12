@@ -11,7 +11,7 @@
             <i class='bx bxs-calendar-exclamation bx-md sm:bx-lg text-[#1e1e1e]'></i>
         </div>
         <div class="flex flex-col text-[#1e1e1e] space-y-1">
-            <p class="text-xs sm:text-lg font-semibold">Total Pengajuan</p>
+            <p class="text-xs sm:text-lg font-semibold">Total Ajuan</p>
             <h1 class="text-2xl sm:text-2xl md:text-4xl font-bold">{{ $jml_pengajuan_cuti_guru }}</h1>
         </div>
     </div>

@@ -10,8 +10,8 @@
         <div class="py-1 px-1.5 sm:py-1.5 sm:px-3 bg-white/20 shadow-md border border-white/25 backdrop-blur-sm rounded-xl">
             <i class='bx bxs-time bx-md sm:bx-lg text-[#1e1e1e] mt-0.5'></i>
         </div>
-        <div class="flex flex-col text-[#1e1e1e] space-y-1">
-            <p class="text-xs sm:text-lg font-semibold">Cuti Pending Guru</p>
+        <div class="w-full flex flex-col text-[#1e1e1e] space-y-1">
+            <p class="text-xs sm:text-lg font-semibold">Cuti Pending</p>
             <h1 class="text-2xl sm:text-2xl md:text-4xl font-bold">{{ $cutiPending->count() }}</h1>
         </div>
     </div>

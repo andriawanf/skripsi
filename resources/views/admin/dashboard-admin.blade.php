@@ -34,12 +34,15 @@
             <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Selamat datang di <span
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari</p>
         </div>
-        <div class="mb-12 flex justify-center w-full space-x-2">
-            <div class="grid grid-cols-2 gap-2 w-full">
-                <livewire:card.card-sisa-cuti-user />
-                <livewire:card.cardjumlah-guru />
-                <livewire:card.card-cuti-pending />
-                <livewire:card.card-jumlah-pengajuan-cuti-guru />
+        <div class="mb-12 flex justify-center w-full gap-3 h-fit">
+            <div class="flex flex-col gap-3 w-full">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+                    <livewire:card.cardjumlah-guru />
+                    <livewire:card.card-jumlah-pengajuan-cuti-guru />
+                    <livewire:card.card-cuti-pending />
+                    {{-- <livewire:card.card-sisa-cuti-user /> --}}
+                </div>
+                <livewire:card.card-ajukan-cuti-user>
             </div>
             <livewire:card.profile-user />
         </div>

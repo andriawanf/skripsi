@@ -1,14 +1,14 @@
 <form action="" class="font-poppins">
 
     @if (Request::is('riwayat-pengajuan-cuti'))
-        <div class="mb-6 flex flex-row justify-between items-end">
-            <div>
+        <div class="mb-3 lg:mb-6 flex flex-col lg:flex-row gap-4 justify-between items-center lg:items-end">
+            <div class="flex flex-col justify-center items-center sm:items-start">
                 <h1 class="font-poppins font-semibold text-lg text-gray-900">Riwayat Pengajuan Cuti</h1>
                 <p class="font-poppins font-medium text-sm text-gray-900 mt-1">List dari riwayat pengajuan cuti anda</p>
             </div>
-            <div class="flex flex-row items-center space-x-4 mb-3">
+            <div class="flex flex-row items-center gap-3 lg:gap-4 mb-3">
                 <a href="{{ route('download-riwayat-cuti-guru') }}"
-                    class="text-center font-medium text-gray-900 py-2 px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
+                    class="text-center font-medium text-gray-900 p-2 sm:py-2 sm:px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
                     <p class="font-normal text-xs">Cetak laporan cuti</p>
                 </a>
                 <div>
@@ -23,7 +23,7 @@
                             </svg>
                         </div>
                         <input type="search" wire:model='searchTerm'
-                            class="block w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                            class="block w-full lg:w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
                             placeholder="Search Mockups, Logos...">
                     </div>
                 </div>

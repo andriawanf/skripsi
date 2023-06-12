@@ -1,7 +1,7 @@
 <form action="" class="font-poppins">
 
     <div>
-        <div class="flex justify-between items-center w-full mb-3 text-[10px]">
+        <div class="flex flex-col lg:flex-row gap-3 justify-between lg:items-center w-full mb-3 text-[10px]">
             <h1 class="font-semibold text-lg">Riwayat Pending Cuti Guru</h1>
             <div>
                 <label for="default-search"

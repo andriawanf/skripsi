@@ -1,9 +1,9 @@
 <form action="" class="font-poppins">
 
     <div>
-        <div class="flex justify-between items-center w-full mb-3 text-[10px]">
+        <div class="flex flex-col lg:flex-row gap-3 justify-between items-start lg:items-center w-full mb-3 text-[10px]">
             <h1 class="font-semibold text-lg">Riwayat Cuti Guru</h1>
-            <div class="flex flex-row items-center space-x-4 mb-3">
+            <div class="flex flex-row items-center space-x-4 mb-3 self-end">
                 <a href="{{ route('download-laporan') }}"
                     class="text-center font-medium text-gray-900 py-2 px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
                     <p class="font-normal text-xs">Cetak laporan cuti</p>
@@ -20,7 +20,7 @@
                             </svg>
                         </div>
                         <input type="search" wire:model='searchTerm'
-                            class="block w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                            class="block w-40 lg:w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
                             placeholder="Search Mockups, Logos...">
                     </div>
                 </div>
