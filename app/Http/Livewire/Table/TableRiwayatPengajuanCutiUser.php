@@ -7,15 +7,22 @@ use App\Models\Guru;
 use App\Models\Kategori;
 use App\Models\Subkategori;
 use App\Models\User;
+use App\Notifications\NotifikasiPengajuanCuti;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class TableRiwayatPengajuanCutiUser extends Component
 {
     use WithPagination;
+    use WithFileUploads;
+    public $dataUser, $kategori_id, $subkategori_id, $tanggal_mulais, $tanggal_akhirs, $alasanCuti, $status, $cutiId, $file_tanda_tangan, $fileBuktiCuti, $kategoriCuti, $kategori_dipilih, $subKategoriCuti, $subkategori_dipilih, $cuti;
+    public $showModal = false;
+    public $subkategoriList = [];
     public $perPage = 10;
     public $totalDays;
 
@@ -72,6 +79,90 @@ class TableRiwayatPengajuanCutiUser extends Component
     public function getCuti()
     {
         return Cuti::paginate($this->pagination);
+    }
+
+    public function editCuti($cutiId)
+{
+    $this->cuti = Cuti::findOrFail($cutiId);
+    $this->kategoriCuti = Kategori::all();
+    $this->subKategoriCuti = Subkategori::all();
+    // Menentukan kategori yang terpilih
+    $this->kategori_dipilih = $this->cuti->kategori->nama;
+    if($this->subkategori_dipilih != null){
+        $this->subkategori_dipilih = $this->cuti->subkategori->nama_subkategoris;
+    }
+    
+    // Mengisi data pengajuan cuti ke dalam properti
+    $this->cutiId = $this->cuti->id;
+    $this->dataUser = $this->cuti->user->name;
+    $this->kategori_id = $this->cuti->kategori_id;
+    $this->subkategori_id = $this->cuti->subkategori_id;
+    $this->alasanCuti = $this->cuti->alasan;
+    $this->tanggal_mulais = $this->cuti->tanggal_mulai;
+    $this->tanggal_akhirs = $this->cuti->tanggal_akhir;
+    $this->file_tanda_tangan = $this->cuti->file_ttd;
+    $this->fileBuktiCuti = $this->cuti->file_bukti;
+
+    // Tampilkan modal edit
+    $this->showModal = true;
+}
+
+    public function updateCuti()
+    {
+        // Validasi input
+        $this->validate([
+            'dataUser' => 'required',
+            'kategori_id' => 'required',
+            'subkategori_id' => 'nullable',
+            'alasanCuti' => 'required',
+            'tanggal_mulais' => 'required|date',
+            'tanggal_akhirs' => 'required|date|after_or_equal:tanggal_mulais',
+            'file_tanda_tangan' => 'required|image|mimes:png',
+            'fileBuktiCuti' => 'required|file|mimes:pdf',
+        ], [
+            'dataUser.required' => 'Isi nama Guru dengan benar!',
+            'kategori_id.required' => 'Isi kategori dengan benar!',
+            'subkategori_id.required' => 'Isi sub-kategori dengan benar!',
+            'alasanCuti.required' => 'Isi alasan dengan benar!',
+            'tanggal_mulais.required' => 'Isi tanggal mulai dengan benar!',
+            'tanggal_akhirs.required' => 'Isi tanggal akhir dengan benar!',
+            'fileBuktiCuti.required' => 'Pilih file bukti cuti!',
+            'fileBuktiCuti.file' => 'File bukti cuti harus dalam format yang valid!',
+            'fileBuktiCuti.mimes' => 'File bukti cuti harus dalam format PDF, PNG, JPG, JPEG, DOC, atau DOCX!',
+            'file_tanda_tangan.required' => 'Pilih file tanda tangan anda!',
+            'file_tanda_tangan.file' => 'File bukti cuti harus dalam format yang valid!',
+            'file_tanda_tangan.mimes' => 'File bukti cuti harus dalam format PNG!',
+        ]);
+        
+        // Simpan data cuti ke database
+        $start = Carbon::parse($this->tanggal_mulais);
+        $end = Carbon::parse($this->tanggal_akhirs);
+        $durasiCuti = $end->diffInDays($start) + 1;
+
+        // simpan foto ttd
+        $file_tanda_tangan = $this->file_tanda_tangan->storeAs('public/foto_ttd_guru/', $this->file_tanda_tangan->getClientOriginalName());
+
+        $file_bukti_cuti_path = $this->fileBuktiCuti->storeAs('public/file_bukti/', $this->fileBuktiCuti->getClientOriginalName());
+
+        $updateCuti = Cuti::findOrFail($this->cutiId);
+        $updateCuti->tanggal_mulai = $this->tanggal_mulais;
+        $updateCuti->tanggal_akhir = $this->tanggal_akhirs;
+        $updateCuti->durasi = $durasiCuti;
+        $updateCuti->file_bukti = $this->fileBuktiCuti->getClientOriginalName();
+        $updateCuti->file_ttd = $this->file_tanda_tangan->getClientOriginalName();
+        $updateCuti->alasan = $this->alasanCuti;
+        $updateCuti->save();
+
+        // Kirim notifikasi ke admin
+        $guru = Auth::user()->name;
+        $admin = User::where('role', 'admin')->first();
+        $admin->notify(new NotifikasiPengajuanCuti('Pengajuan cuti sebelumnya telah diedit oleh ' . $guru));
+
+        // Tampilkan notifikasi sukses
+        session()->flash('message', 'Cuti berhasil di update dan sedang dalam proses.');
+        // Reset input form
+        $this->reset();
+        return redirect()->route('riwayat-cuti');
     }
 
     public function exportDocx($id)

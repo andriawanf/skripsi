@@ -32,7 +32,8 @@
     @else
         <div class="flex justify-between items-center w-full mb-3 text-[10px]">
             <h1 class="font-semibold text-lg">Riwayat Pengajuan Cuti</h1>
-            <a href="{{route('riwayat-cuti')}}" class="flex gap-1 justify-center items-center text-gray-400 hover:text-gray-900">
+            <a href="{{ route('riwayat-cuti') }}"
+                class="flex gap-1 justify-center items-center text-gray-400 hover:text-gray-900">
                 <p class="font-normal text-xs">Lihat</p>
                 <i class='bx bx-right-arrow-alt'></i>
             </a>
@@ -51,7 +52,8 @@
                     <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('kategori_id')">
                         Kategori {!! $orderColumn == 'kategori_id' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('subkategori_id')">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort"
+                        wire:click="sortOrder('subkategori_id')">
                         Sub-Kategori {!! $orderColumn == 'subkategori_id' ? $sortLink : '' !!}
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('tanggal_mulai')">
@@ -111,8 +113,8 @@
                             </td>
                             @if ($item->status == 'Pending')
                                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="#"
-                                        class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Edit</a>
+                                    <button wire:click.prevent='editCuti({{ $item->id }})'
+                                        class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Edit</button>
                                 </td>
                             @else
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -132,11 +134,244 @@
         </table>
     </div>
     @if (Request::is('riwayat-pengajuan-cuti'))
-    <div class="flex items-center justify-end py-4 px-4 mt-2" aria-label="Table navigation">
-        Menampilkan {{ $cutiGuru->count() }} dari {{ $cutiGuruTotal }} hasil
-        {{ $cutiGuru->links() }}
+        <div class="flex items-center justify-end py-4 px-4 mt-2" aria-label="Table navigation">
+            Menampilkan {{ $cutiGuru->count() }} dari {{ $cutiGuruTotal }} hasil
+            {{ $cutiGuru->links() }}
+        </div>
+    @endif
+
+    <!-- Main modal -->
+    @if ($showModal)
+    <div class="fixed z-50 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Overlay -->
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-black bg-opacity-40 backdrop-filter backdrop-blur-sm"></div>
+            </div>
+    
+            <!-- Modal Content -->
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                <!-- Modal Body -->
+                <div class="px-4 py-6 sm:p-8">
+                    <h1 class="text-lg sm:text-2xl font-semibold font-poppins pb-3 border-b border-gray-300">Edit data cuti</h1>
+                    <!-- Form Edit -->
+                    <form wire:submit.prevent="updateCuti">
+                        <div class="mb-6 pt-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                Guru</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                wire:model='dataUser'>
+                            @error('dataGuru')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                                Cuti</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                wire:model='kategori_dipilih' readonly>
+                        </div>
+                        <div class="mb-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sub-Kategori
+                                Cuti</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                @if ($subkategori_dipilih != null) value="{{ $subkategori_dipilih }}"
+                                @else
+                                    value="N/A" @endif
+                                readonly>
+                        </div>
+                        <div class="mb-6">
+                            <label for="tanggal"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Cuti</label>
+                            <div class="flex items-center">
+                                <div class="relative w-full">
+                                    <input id="tanggal_mulais" type="date" wire:model='tanggal_mulais' wire:ignore
+                                        class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="pilih tanggal mulai">
+                                </div>
+                                <span class="mx-3 text-sm font-medium text-gray-900">sampai</span>
+                                <div class="relative w-full">
+                                    <input id="tanggal_akhirs" type="date" wire:model='tanggal_akhirs' wire:ignore
+                                        class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Pilih tanggal akhir">
+                                </div>
+                            </div>
+                            @error('tanggal_mulais')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                            @error('tanggal_akhirs')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="fileBuktiCuti" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File Bukti</label>
+                            <input wire:model.defer='fileBuktiCuti' id="fileBuktiCuti" name="fileBuktiCuti"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" value="{{ asset('storage/file_bukti/' . $cuti->file_bukti) }}"
+                            id="foto" type="file">
+                            @error('fileBuktiCuti')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Tanda Tangan</label>
+                            <input wire:model='file_tanda_tangan'
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="foto" type="file">
+                            @error('file_tanda_tangan')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alasan</label>
+                            <textarea id="alasanCuti" rows="4" wire:model='alasanCuti' name="alasanCuti"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Tuliskan alasan anda disini..."></textarea>
+                            @error('alasanCuti')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex justify-end">
+                            <!-- Tombol Submit -->
+                            <button wire:click.prevent="updateCuti"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan
+                                Perubahan</button>
+                        </div>
+                    </form>
+                    <!-- Add the following class to make the modal scrollable -->
+                    <div class="max-h-80 overflow-y-auto">
+                        <!-- Modal content that can be scrolled -->
+                    </div>
+    
+                    <!-- End of Content -->
+                </div>
+            </div>
+        </div>
     </div>
-        
+        {{-- <div class="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">
+            <div
+                class="fixed inset-0 bg-black bg-opacity-40 backdrop-filter backdrop-blur-sm flex items-center justify-center">
+                <div class="bg-white w-1/2 rounded-lg shadow-lg p-6">
+                    <h1 class="text-lg lg:text-xl mb-6">Edit data cuti</h1>
+                    <!-- Form Edit -->
+                    <form wire:submit.prevent="updateCuti">
+                        <div class="mb-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                Guru</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                wire:model='dataUser'>
+                            @error('dataGuru')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                                Cuti</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                wire:model='kategori_dipilih' readonly>
+                        </div>
+                        <div class="mb-6">
+                            <label for="kategori"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sub-Kategori
+                                Cuti</label>
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                @if ($subkategori_dipilih != null) value="{{ $subkategori_dipilih }}"
+                                @else
+                                    value="N/A" @endif
+                                readonly>
+                        </div>
+                        <div class="mb-6">
+                            <label for="tanggal"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Cuti</label>
+                            <div class="flex items-center">
+                                <div class="relative w-full">
+                                    <input id="tanggal_mulais" type="date" wire:model='tanggal_mulais' wire:ignore
+                                        class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="pilih tanggal mulai">
+                                </div>
+                                <span class="mx-3 text-sm font-medium text-gray-900">sampai</span>
+                                <div class="relative w-full">
+                                    <input id="tanggal_akhirs" type="date" wire:model='tanggal_akhirs' wire:ignore
+                                        class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Pilih tanggal akhir">
+                                </div>
+                            </div>
+                            @error('tanggal_mulais')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                            @error('tanggal_akhirs')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
+                                        tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="fileBuktiCuti" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File Bukti</label>
+                            <input wire:model='fileBuktiCuti' id="fileBuktiCuti" name="fileBuktiCuti"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="foto" type="file">
+                            @error('fileBuktiCuti')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Tanda Tangan</label>
+                            <input wire:model='file_tanda_tangan'
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="foto" type="file">
+                            @error('file_tanda_tangan')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alasan</label>
+                            <textarea id="alasanCuti" rows="4" wire:model='alasanCuti' name="alasanCuti"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Tuliskan alasan anda disini..."></textarea>
+                            @error('alasanCuti')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, tidak!</span>
+                                    {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex justify-end">
+                            <!-- Tombol Submit -->
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan
+                                Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> --}}
     @endif
 
 
