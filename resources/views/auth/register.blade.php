@@ -15,6 +15,8 @@
         rel="stylesheet">
     {{-- flowbite cdn --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+    {{-- icons cdn --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @livewireStyles
 </head>
 

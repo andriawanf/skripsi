@@ -81,7 +81,7 @@
 </div>
 
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 font-poppins flex flex-col justify-between px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 shadow-md border-r border-gray-200"
+    class="fixed top-0 left-0 z-0 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 font-poppins flex flex-col justify-between px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 shadow-md border-r border-gray-200"
     aria-label="Sidebar">
     <div class="h-full">
         <a href="#" class="flex flex-col pl-2.5 pb-5 border-b">

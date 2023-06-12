@@ -93,6 +93,7 @@ class AuthController extends Controller
             default:
                 return redirect()->route('home');
         }
+        
     }
 
     // Proses logout

@@ -15,6 +15,8 @@
         rel="stylesheet">
     {{-- flowbite cdn --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+    {{-- icons cdn --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @livewireStyles
 </head>
 
@@ -89,10 +91,10 @@
                 </div>
                 <div class="mt-8">
                     @if ($errors->any())
-                        <div class="font-poppins text-red-700 text-base font-medium">
+                        <div class="font-poppins text-red-700 text-base font-medium mb-8">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li><span><i class='bx bxs-error-circle'></i> </span> {{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>

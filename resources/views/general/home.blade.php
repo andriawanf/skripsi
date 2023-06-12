@@ -21,10 +21,14 @@
 </head>
 
 <body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+    {{-- loading spinner --}}
+    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+        <div class="square-circle-5"></div>
+    </div>
 
     <livewire:layout.navbar />
 
-    <main class="my-6 sm:ml-64">
+    <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
             <h1 class="font-poppins font-semibold text-2xl text-gray-900">Hallo, {{ Auth::user()->name }}👋</h1>
@@ -53,6 +57,26 @@
     </main>
 
     @livewireScripts
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Tampilkan loading spinner saat halaman dimuat
+            showLoadingSpinner();
+    
+            // Sembunyikan loading spinner setelah waktu tertentu (misalnya 3 detik)
+            setTimeout(function() {
+                hideLoadingSpinner();
+            }, 2500);
+        });
+    
+        function showLoadingSpinner() {
+            document.getElementById("loading-spinner").style.display = "block";
+        }
+    
+        function hideLoadingSpinner() {
+            document.getElementById("loading-spinner").style.display = "none";
+            document.getElementById('content').style.display = 'block'; // Menampilkan elemen view
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 
