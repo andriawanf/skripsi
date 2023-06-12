@@ -22,6 +22,7 @@ class TableRiwayatPengajuanCutiUser extends Component
     use WithFileUploads;
     public $dataUser, $kategori_id, $subkategori_id, $tanggal_mulais, $tanggal_akhirs, $alasanCuti, $status, $cutiId, $file_tanda_tangan, $fileBuktiCuti, $kategoriCuti, $kategori_dipilih, $subKategoriCuti, $subkategori_dipilih, $cuti;
     public $showModal = false;
+    public $showModalHapus = false;
     public $subkategoriList = [];
     public $perPage = 10;
     public $totalDays;
@@ -163,6 +164,20 @@ class TableRiwayatPengajuanCutiUser extends Component
         // Reset input form
         $this->reset();
         return redirect()->route('riwayat-cuti');
+    }
+
+    public function confirmDelete($id)
+    {
+        $this->cutiId = $id;
+        $this->showModalHapus = true;
+    }
+
+    public function delete()
+    {
+        $cuti = Cuti::find($this->cutiId);
+        $cuti->delete();
+
+        session()->flash('message', 'Cuti berhasil dihapus!');
     }
 
     public function exportDocx($id)

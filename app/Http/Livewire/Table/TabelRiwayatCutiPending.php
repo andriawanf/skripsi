@@ -127,8 +127,41 @@ class TabelRiwayatCutiPending extends Component
             $guru = User::find($cuti->user_id);
 
             // Cuti melahirkan, tidak perlu mengurangi saldo cuti
-            if ($cuti->subkategori->nama_subkategoris === 'Cuti Melahirkan') {
+            if ($cuti->subkategori_id == null) {
+                // Saldo cuti cukup, mengurangi saldo cuti guru
+                if ($guru->saldo_cuti >= $cuti->durasi) {
 
+                    // simpan foto ttd
+                    $fotoTandaTanganPath = $this->fotoTandaTangan->storeAs('public/foto_ttd_guru/', $this->fotoTandaTangan->getClientOriginalName());
+
+                    $cuti->file_ttd_kepsek = $this->fotoTandaTangan->getClientOriginalName();
+                    $cuti->status = 'Setuju';
+                    $cuti->save();
+
+
+                    // Kirim notifikasi ke guru
+                    $message = 'Pengajuan cuti Anda telah disetujui oleh kepala sekolah';
+                    $notification = new NotifikasiPengajuanCuti($message);
+                    $guru->notify($notification);
+
+                    // Mengurangi saldo cuti guru
+                    $sisaCuti = $guru->saldo_cuti - $cuti->durasi;
+                    $guru->saldo_cuti = $sisaCuti;
+                    $guru->save();
+
+                    $this->showModal = false;
+
+                    session()->flash('message', 'Pengajuan cuti berhasil disetujui.');
+                    return redirect()->route('riwayat-cuti-guru');
+                } else {
+                    // Saldo cuti tidak mencukupi
+                    $message = 'Maaf, pengajuan cuti Anda gagal karena saldo cuti tidak mencukupi';
+                    $notification = new NotifikasiPengajuanCuti($message);
+                    $guru->notify($notification);
+
+                    session()->flash('message', 'Saldo cuti tidak mencukupi.');
+                }
+            } elseif($cuti->subkategori->nama_subkategoris === 'Cuti Melahirkan') {
                 // simpan foto ttd
                 $fotoTandaTanganPath = $this->fotoTandaTangan->storeAs('public/foto_ttd_guru/', $this->fotoTandaTangan->getClientOriginalName());
 
@@ -143,6 +176,7 @@ class TabelRiwayatCutiPending extends Component
 
                 session()->flash('message', 'Pengajuan cuti melahirkan berhasil disetujui.');
                 return redirect()->route('riwayat-cuti-guru');
+                
             } else {
                 // Saldo cuti cukup, mengurangi saldo cuti guru
                 if ($guru->saldo_cuti >= $cuti->durasi) {

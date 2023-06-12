@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Table;
 
+use App\Models\Cuti;
 use App\Models\Guru as ModelsDataGuru;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class DataGuru extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $nama, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id;
+    public $nama, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id, $userAccount;
     public $pagination = 10;
 
     public function render()
@@ -23,7 +24,9 @@ class DataGuru extends Component
         if (Auth::user()->role == 'admin') {
             $users = User::where('role', 'user')->paginate($this->pagination);
         } elseif(Auth::user()->role == 'kepala_sekolah') {
-            $users = User::where('role', 'admin', '&&', 'role', 'user')->paginate($this->pagination);
+            $users = User::where('role', 'admin')
+            ->orWhere('role', 'user')
+            ->paginate($this->pagination);
         }
         
         return view('livewire.table.data-guru', compact('users'));
@@ -100,9 +103,19 @@ class DataGuru extends Component
         return redirect()->route('data-guru');
     }
 
-    public function delete($id)
+    public function confirmDelete($userId)
     {
-        User::find($id)->delete();
+        $this->userAccount = $userId;
+    }
+
+    public function delete()
+    {
+        $userid = User::find($this->userAccount);
+        
+        // Hapus data cuti terkait dengan guru
+        Cuti::where('user_id', $userid->id)->delete();
+        $userid->delete();
         session()->flash('message', 'Data berhasil dihapus.');
+        return redirect()->route('data-guru');
     }
 }

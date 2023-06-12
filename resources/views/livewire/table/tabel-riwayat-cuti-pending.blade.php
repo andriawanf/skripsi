@@ -180,7 +180,7 @@
                         @enderror
                     </div>
                     <div class="mt-4 flex justify-end space-x-2 font-poppins">
-                        <button wire:click="approve"
+                        <button wire:click.prevent="approve"
                             class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
                             Setuju
                         </button>
