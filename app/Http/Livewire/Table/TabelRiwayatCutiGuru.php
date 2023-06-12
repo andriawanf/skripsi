@@ -90,13 +90,21 @@ class TabelRiwayatCutiGuru extends Component
         $subkategori = Subkategori::find($cuti->subkategori_id);
 
         // Mendapatkan nama kategori dan subkategori
-        // $namaKategori = $kategori->nama;
-        // $namaSubkategori = $subkategori->nama_subkategoris;
+        $namaKategori = $kategori->nama;
+        $namaSubkategori = null;
 
-        if ($subkategori->nama_subkategoris === 'Cuti Melahirkan') {
-            $templatePath = public_path('templates/laporan_cuti_melahirkan.docx');
-        } elseif ($subkategori->nama_subkategoris === 'Cuti Sakit') {
-            $templatePath = public_path('templates/laporan_cuti_guru.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
+        if ($subkategori) {
+            $namaSubkategori = $subkategori->nama_subkategoris;
+        }
+
+        if ($namaKategori === 'Cuti Tahunan'){
+            $templatePath = public_path('templates/surat_cuti_tahunan.docx');
+        } elseif($namaSubkategori === 'Cuti Melahirkan') {
+            $templatePath = public_path('templates/surat_cuti_melahirkan.docx');
+        } elseif ($namaSubkategori === 'Cuti Sakit') {
+            $templatePath = public_path('templates/surat_cuti_guru.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
+        } else {
+            $templatePath = public_path('templates/surat_cuti_lainnya.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
         }
 
         // format tanggal
@@ -119,8 +127,8 @@ class TabelRiwayatCutiGuru extends Component
         $templateProcessor->setValue('durasi_cuti', $cuti->durasi);
         $templateProcessor->setValue('alasan_cuti', $cuti->alasan);
         $templateProcessor->setValue('status_cuti', $cuti->status);
-        $templateProcessor->setValue('kategori_cuti', $cuti->kategori->nama);
-        $templateProcessor->setValue('subkategori_cuti', $cuti->subkategori->nama_subkategoris);
+        $templateProcessor->setValue('kategori_cuti', $namaKategori);
+        $templateProcessor->setValue('subkategori_cuti', $namaSubkategori);
         $templateProcessor->setImageValue('tanda_tangan', [
             'path' => 'storage/foto_ttd_guru/' .$cuti->file_ttd,
             'width' => 150,
@@ -147,7 +155,12 @@ class TabelRiwayatCutiGuru extends Component
         $templateProcessor->setValue('nip_kepalaSekolah', $leader->nip);
         // Tambahkan penyesuaian lain sesuai dengan atribut yang ada dalam template laporan
 
-        $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $cuti->subkategori->nama_subkategoris . '.docx';
+        if ($namaKategori === 'Cuti Tahunan') {
+            $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $namaKategori . '.docx';
+        } elseif($namaSubkategori) {
+            $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $namaSubkategori . '.docx';
+        }
+        
         $templateProcessor->saveAs($filename);
 
         return Response::download($filename)->deleteFileAfterSend(true);
