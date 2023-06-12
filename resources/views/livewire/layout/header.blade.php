@@ -23,7 +23,7 @@
                 </div>
             </button>
             <div data-popover id="data-notif" role="tooltip"
-                class="absolute z-10 invisible w-96 font-poppins font-medium text-sm text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                class="absolute z-50 invisible w-96 font-poppins font-medium text-sm text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
                 <div class="p-3">
                     <ul class="space-y-4">
                         @forelse ($notifications as $notification)

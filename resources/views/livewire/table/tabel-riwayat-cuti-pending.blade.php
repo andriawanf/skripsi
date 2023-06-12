@@ -59,6 +59,7 @@
             </thead>
             <tbody class="font-medium">
                 @if ($cutiPending->count())
+                {{-- table admin --}}
                     @foreach ($cutiPending as $item)
                         <tr
                             class="bg-white border-b border-gray-300 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -96,9 +97,9 @@
                                 @if (Auth::user()->role == 'admin')
                                     <td class="px-6 py-4 flex flex-col gap-2">
                                         <button type="submit" wire:click.prevent='confirm({{ $item->id }})'
-                                            class="px-4 py-2 bg-green-600 rounded-lg font-medium text-white hover:underline">Konfirmasi</button>
+                                            class="px-4 py-2 rounded-lg font-medium text-white bg-blue-600 hover:underline">Konfirmasi</button>
                                         <button type="submit" wire:click.prevent='reject({{ $item->id }})'
-                                            class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Tolak</button>
+                                            class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline">Tolak</button>
                                     </td>
                                 @else
                                     <td class="px-6 py-4"></td>
@@ -106,6 +107,7 @@
                             @endif
                         </tr>
                     @endforeach
+                {{-- Table Kepsek --}}
                 @elseif ($cutiKonfirmasi->count())
                     @foreach ($cutiKonfirmasi as $item)
                         <tr

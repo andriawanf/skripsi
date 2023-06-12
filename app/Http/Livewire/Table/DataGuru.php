@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Table;
 
 use App\Models\Guru as ModelsDataGuru;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -15,10 +16,16 @@ class DataGuru extends Component
     use WithFileUploads;
 
     public $nama, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id;
+    public $pagination = 10;
 
     public function render()
     {
-        $users = User::all();
+        if (Auth::user()->role == 'admin') {
+            $users = User::where('role', 'user')->paginate($this->pagination);
+        } elseif(Auth::user()->role == 'kepala_sekolah') {
+            $users = User::where('role', 'admin', '&&', 'role', 'user')->paginate($this->pagination);
+        }
+        
         return view('livewire.table.data-guru', compact('users'));
     }
 
