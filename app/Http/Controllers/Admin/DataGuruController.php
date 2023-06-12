@@ -44,6 +44,7 @@ class DataGuruController extends Controller
             // 'foto' => $image->hashName()
         ]);
 
+        session()->flash('message','Data Guru Berhasil ditambahkan!');
         // redirecting
         return redirect()->route('data-guru')->with(['success' => 'Data guru berhasil ditambahkan']);
     }

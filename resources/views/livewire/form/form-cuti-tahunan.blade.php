@@ -103,13 +103,6 @@
                 {{ $message }}</p>
         @enderror
     </div>
-    {{-- <div class="w-1/2 mb-6 flex gap-4 items-center">
-        <div>
-            <canvas id="signaturePad" class="w-full bg-white border border-gray-300 rounded-xl"></canvas>
-            <input type="hidden" id="signatureInput" wire:model="signature">
-        </div>
-        <button id="cancelSignature" class="px-3 py-1.5 text-center text-sm text-white font-poppins font-medium bg-red-600 h-12 rounded-lg">Hapus</button>
-    </div> --}}
     <button type="submit" wire:click.prevent='submitForm'
         class="bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-xl text-sm text-white hover:text-gray-900 px-5 py-2.5 text-center w-full">Ajukan
         Cuti</button>
