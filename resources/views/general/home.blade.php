@@ -8,6 +8,7 @@
     <title>Home</title>
     {{-- vite --}}
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
     {{-- font customs --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,26 +58,6 @@
     </main>
 
     @livewireScripts
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Tampilkan loading spinner saat halaman dimuat
-            showLoadingSpinner();
-    
-            // Sembunyikan loading spinner setelah waktu tertentu (misalnya 3 detik)
-            setTimeout(function() {
-                hideLoadingSpinner();
-            }, 2500);
-        });
-    
-        function showLoadingSpinner() {
-            document.getElementById("loading-spinner").style.display = "block";
-        }
-    
-        function hideLoadingSpinner() {
-            document.getElementById("loading-spinner").style.display = "none";
-            document.getElementById('content').style.display = 'block'; // Menampilkan elemen view
-        }
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 
