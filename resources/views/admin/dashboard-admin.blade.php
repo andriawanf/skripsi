@@ -42,7 +42,7 @@
                     <livewire:card.card-cuti-pending />
                     {{-- <livewire:card.card-sisa-cuti-user /> --}}
                 </div>
-                <livewire:card.card-ajukan-cuti-user>
+                <livewire:card.card-lihat-riwayat-cuti />
             </div>
             <livewire:card.profile-user />
         </div>
