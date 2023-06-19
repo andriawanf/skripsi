@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\LaporanCutiGuruExport;
 use App\Http\Controllers\Controller;
 use App\Models\Cuti;
 use App\Models\Kategori;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class AdminController extends Controller
@@ -90,7 +92,7 @@ class AdminController extends Controller
 
     public function exportPDF()
     {
-        $cutiGuru = Cuti::whereIn('status', ['Konfirmasi', 'Tolak'])->get(); // Ubah sesuai model dan atribut yang sesuai dengan tabel cuti guru Anda
+        $cutiGuru = Cuti::whereIn('status', ['Setuju', 'Tolak'])->get(); // Ubah sesuai model dan atribut yang sesuai dengan tabel cuti guru Anda
 
         $options = new Options();
         $options->set('defaultFont', 'Poppins');
@@ -117,15 +119,11 @@ class AdminController extends Controller
 
     public function exportPDFRiwayatCutiGuru()
     {
-        $cutiGuru = auth()->user()->cutis;
-        $options = new Options();
-        $options->set('defaultFont', 'Poppins');
-        $pdf = new Dompdf($options);
-        $pdf->loadHtml(View::make('livewire.template.riwayat-cuti-guru-pdf', compact('cutiGuru'))->render());
-        $pdf->setPaper('A4', 'landscape');
-        $pdf->render();
+        // Ambil data cuti guru yang berstatus "Setuju"
+        $cutis = auth()->user()->cutis;
 
-        return $pdf->stream('laporan_riwayat_cuti_guru.pdf');
+        // Generate dan simpan file Excel menggunakan Laravel Excel
+        return Excel::download(new LaporanCutiGuruExport($cutis), 'laporan_cuti_guru.xlsx');
     }
 
     public function exportDocx($id)
@@ -155,5 +153,13 @@ class AdminController extends Controller
         $templateProcessor->saveAs($filename);
 
         return Response::download($filename)->deleteFileAfterSend(true);
+    }
+    public function cetakLaporan()
+    {
+        // Ambil data cuti guru yang berstatus "Setuju"
+        $cutis = Cuti::where('status', ['Setuju', 'Tolak'])->get();
+
+        // Generate dan simpan file Excel menggunakan Laravel Excel
+        return Excel::download(new LaporanCutiGuruExport($cutis), 'laporan_cuti_guru.xlsx');
     }
 }

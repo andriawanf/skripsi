@@ -7,10 +7,11 @@
                 <p class="font-poppins font-medium text-sm text-gray-900 mt-1">List dari riwayat pengajuan cuti anda</p>
             </div>
             <div class="flex flex-row items-center gap-3 lg:gap-4 mb-3">
-                <a href="{{ route('download-riwayat-cuti-guru') }}"
-                    class="text-center font-medium text-gray-900 p-2 sm:py-2 sm:px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
-                    <p class="font-normal text-xs">Cetak laporan cuti</p>
-                </a>
+                <div
+                    class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg flex flex-row space-x-2 justify-center items-center">
+                    <i class='bx bxs-printer'></i>
+                    <a href="{{ route('download-riwayat-cuti-guru') }}">Cetak Laporan Cuti</a>
+                </div>
                 <div>
                     <label for="default-search"
                         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>

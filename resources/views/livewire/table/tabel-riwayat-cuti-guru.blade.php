@@ -4,10 +4,11 @@
         <div class="flex flex-col lg:flex-row gap-3 justify-between items-start lg:items-center w-full mb-3 text-[10px]">
             <h1 class="font-semibold text-lg">Riwayat Cuti Guru</h1>
             <div class="flex flex-row items-center space-x-4 mb-3 self-end">
-                <a href="{{ route('download-laporan') }}"
-                    class="text-center font-medium text-gray-900 py-2 px-4 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br rounded-lg">
-                    <p class="font-normal text-xs">Cetak laporan cuti</p>
-                </a>
+                <div
+                    class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg flex flex-row space-x-2 justify-center items-center">
+                    <i class='bx bxs-printer'></i>
+                    <a href="{{ route('cetakLaporan') }}">Cetak Laporan Cuti</a>
+                </div>
                 <div>
                     <label for="default-search"
                         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -34,7 +35,8 @@
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                         No
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('user_id')">Nama Guru {!! $orderColumn == 'user_id' ? $sortLink : '' !!}
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('user_id')">Nama
+                        Guru {!! $orderColumn == 'user_id' ? $sortLink : '' !!}
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('kategori_id')">
                         Kategori {!! $orderColumn == 'kategori_id' ? $sortLink : '' !!}
@@ -50,6 +52,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap" wire:click="sortOrder('durasi')">
                         Total Cuti {!! $orderColumn == 'durasi' ? $sortLink : '' !!}
+                    </th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                        File Bukti
                     </th>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                         Alasan
@@ -91,6 +96,10 @@
                             <td class="px-6 py-4">
                                 {{ $item->durasi }} Hari
                             </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ asset('/storage/file_bukti/' . $item->file_bukti) }}"
+                                    class="text-blue-500 hover:text-blue-700 hover:underline">{{ $item->file_bukti }}</a>
+                            </td>
                             <td class="px-6 py-4 line-clamp-5 w-64">
                                 {{ $item->alasan }}
                             </td>
@@ -121,7 +130,7 @@
     </div>
     <div class="flex items-center justify-end py-4 px-4 mt-2" aria-label="Table navigation">
         Menampilkan {{ $cutiGuru->count() }} dari {{ $cutiGuruTotal }} hasil
-    {{ $cutiGuru->links() }}
+        {{ $cutiGuru->links() }}
     </div>
 
 </form>

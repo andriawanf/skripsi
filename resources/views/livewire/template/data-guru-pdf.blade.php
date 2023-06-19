@@ -7,8 +7,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 500;
         }
     
         th,
@@ -23,7 +21,7 @@
 <body>
     <h1>Laporan Cuti Guru</h1>
 
-    <table>
+    <table class="font-poppins">
         <thead>
             <tr>
                 <th scope="col">

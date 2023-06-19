@@ -64,6 +64,7 @@ Route::get('/download-laporan', [AdminController::class, 'exportPDF'])->name('do
 Route::get('/download-data-guru', [AdminController::class, 'exportPDFDataGuru'])->name('download-data-guru');
 Route::get('/download-riwayat-cuti-guru', [AdminController::class, 'exportPDFRiwayatCutiGuru'])->name('download-riwayat-cuti-guru');
 Route::get('/export-cuti-guru/{id}', [AdminController::class, 'exportDocx'])->name('download-cuti-guru');
+Route::get('/cetakLaporan', [AdminController::class, 'cetakLaporan'])->name('cetakLaporan');
 
 
 // Route Kepsek

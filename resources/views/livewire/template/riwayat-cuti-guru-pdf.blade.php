@@ -7,12 +7,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Poppins;
         }
     
         th,
         td {
-            padding: 10px;
+            padding: 12px;
             border-bottom: 1px;
             border-color: gray;
         }
@@ -22,7 +22,7 @@
 <body>
     <h1>Laporan Cuti Guru</h1>
 
-    <table>
+    <table class="font-poppins">
         <thead>
             <tr>
                 <th scope="col">
@@ -45,6 +45,9 @@
                 </th>
                 <th scope="col">
                     Total Cuti
+                </th>
+                <th scope="col">
+                    File Bukti
                 </th>
                 <th scope="col">
                     Alasan
@@ -79,6 +82,9 @@
                         </td>
                         <td>
                             {{ $item->durasi }} Hari
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="{{asset('/storage/file_bukti/' . $item->file_bukti)}}">{{$item->file_bukti}}</a>
                         </td>
                         <td class="px-6 py-4 line-clamp-1">
                             {{ $item->alasan }}
