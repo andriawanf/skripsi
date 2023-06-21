@@ -10,6 +10,8 @@
     {{-- vite --}}
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    {{-- Logo --}}
+    <link rel="shortcut icon" href="{{url('images/logo.png')}}" type="image/x-icon">
     {{-- font customs --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
