@@ -30,3 +30,9 @@
   87.5% {inset:0    0    35px 0   }
   100%  {inset:0    35px 35px 0   }
 }
+
+/* sidebar */
+.active {
+  background-color: #8AC054;
+  padding-left: 16px;
+}

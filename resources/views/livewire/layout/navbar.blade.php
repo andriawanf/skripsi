@@ -90,23 +90,23 @@
         </a>
         <ul class="space-y-4 font-medium pt-5 text-xs">
             @if (Auth::user()->role == 'user')
-                <li>
+                <li class="{{ '/' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('home') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                         <img src="{{ url('images/home.svg') }}" alt="beranda">
                         <span class="ml-3">Beranda</span>
                     </a>
                 </li>
             @elseif (Auth::user()->role == 'admin')
-                <li>
+                <li class="{{ 'admin/dashboard-admin' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('admin') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-xl dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                         <img src="{{ url('images/home.svg') }}" alt="beranda">
                         <span class="ml-3">Beranda</span>
                     </a>
                 </li>
             @else
-                <li>
+                <li class="{{ 'kepalaSekolah/dashboard' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('kepala_sekolah') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <img src="{{ url('images/home.svg') }}" alt="beranda">
@@ -114,10 +114,10 @@
                     </a>
                 </li>
             @endif
-            <li>
+            <li class="{{ 'form-cuti-tahunan' == request()->path() ? 'active' :  '' }} rounded-xl">
                 @if (Auth::user()->role == 'user')
                     <a href="{{ route('cuti-tahunan') }}"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
                         <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Pengajuan Cuti</span>
@@ -125,25 +125,25 @@
                 @endif
             </li>
             @if (Auth::user()->role == 'user')
-                <li>
+                <li class="{{ 'riwayat-pengajuan-cuti' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('riwayat-cuti') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                         <img src="{{ url('images/inbox.svg') }}" alt="">
                         <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Cuti</span>
                     </a>
                 </li>
             @endif
             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'kepala_sekolah')
-                <li>
+                <li  class="{{ 'riwayat-cuti-guru' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('riwayat-cuti-guru') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                         <img src="{{ url('images/envelope.svg') }}" alt="">
                         <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Cuti Guru</span>
                     </a>
                 </li>
                 <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
                         <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Data Cuti</span>
@@ -155,29 +155,29 @@
                         </svg>
                     </button>
                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                        <li>
+                        <li  class="{{ 'tambah-kategori' == request()->path() ? 'active' :  '' }} rounded-xl">
                             <a href="{{ route('tambah-kategori') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
                                 Data Kategori Cuti</a>
                         </li>
-                        <li>
+                        <li  class="{{ 'Tambah-subkategori' == request()->path() ? 'active' :  '' }} rounded-xl">
                             <a href="{{ route('tambah-subkategori') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
                                 Data Sub-kategori Cuti</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li  class="{{ 'data-guru' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('data-guru') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                         <img src="{{ url('images/users-three.svg') }}" alt="">
                         <span class="flex-1 ml-3 whitespace-nowrap">Data Guru</span>
                     </a>
                 </li>
             @endif
-            <li>
+            <li  class="{{ 'pengaturan' == request()->path() ? 'active' :  '' }} rounded-xl">
                 <a href="{{ route('pengaturan') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                     <img src="{{ url('images/settings.svg') }}" alt="">
                     <span class="flex-1 ml-3 whitespace-nowrap">Pengaturan</span>
                 </a>
