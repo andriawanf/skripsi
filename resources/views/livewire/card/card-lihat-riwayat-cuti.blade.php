@@ -24,5 +24,5 @@
             <h1 class="text-sm lg:text-lg font-medium">Website CIGU memudahkan Anda dalam mengelola riwayat cuti guru dengan mudah!</h1>
         </div>
     </div>
-    <button type="button" class="relative px-4 py-1.5 bg-gradient-to-r from-[#B4E080] to-[#8AC054] rounded-lg text-sm font-medium">Ajukan Cuti</button>
+    <button type="button" class="relative px-4 py-1.5 bg-gradient-to-r from-[#B4E080] to-[#8AC054] rounded-lg text-sm font-medium">Lihat Riwayat Cuti Guru</button>
 </div>
