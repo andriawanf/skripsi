@@ -61,7 +61,9 @@ class TableRiwayatPengajuanCutiUser extends Component
 
     public function render()
     {
-        $cutiGuru = Cuti::orderBy($this->orderColumn, $this->sortOrder)->select('*');
+        $guruId = Auth::id();
+
+        $cutiGuru = Cuti::where('user_id', $guruId)->orderBy($this->orderColumn, $this->sortOrder)->select('*');
 
         if (!empty($this->searchTerm)) {
             $cutiGuru->where(function ($query) {

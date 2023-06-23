@@ -112,7 +112,7 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->status }}
                             </td>
-                            @if ($item->status == 'Pending')
+                            @if ($item->status == 'Pending' || $item->status == 'Konfirmasi')
                                 <td
                                     class="font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-col gap-2">
                                     <button wire:click.prevent='editCuti({{ $item->id }})'

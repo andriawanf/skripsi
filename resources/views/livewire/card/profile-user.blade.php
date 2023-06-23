@@ -8,7 +8,7 @@
             class="w-24 h-24 rounded-full object-cover border-2 border-[#1e1e1e] z-10">
     @endif
     <h1 class="font-medium text-xl capitalize z-10">{{ auth()->user()->name }}</h1>
-    <p class="font-normal text-sm z-10">{{ auth()->user()->jabatan }}</p>
+    <span class="font-normal text-sm z-10">{{ auth()->user()->jabatan }} <span>- NIP: {{auth()->user()->nip}}</span></span>
     <a href="{{ route('pengaturan') }}"
         class="px-4 py-2 flex gap-2 font-medium text-white text-base font-poppins bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg hover:bg-gradient-to-br z-10">
         <img src="{{ url('images/sliders-h.svg') }}" alt="">
