@@ -146,7 +146,7 @@ class TabelRiwayatCutiPending extends Component
 
 
                     // Kirim notifikasi ke guru
-                    $message = 'Pengajuan cuti Anda telah disetujui oleh kepala sekolah';
+                    $message = 'Pengajuan cuti tahunan Anda telah disetujui oleh kepala sekolah';
                     $notification = new NotifikasiPengajuanCuti($message);
                     $guru->notify($notification);
 
@@ -176,7 +176,7 @@ class TabelRiwayatCutiPending extends Component
                 $cuti->save();
 
                 // Kirim notifikasi ke guru
-                $message = 'Pengajuan cuti Anda (cuti melahirkan) telah disetujui oleh kepala sekolah';
+                $message = 'Pengajuan '.$cuti->subkategori->nama_subkategoris. ' Anda telah disetujui oleh kepala sekolah';
                 $notification = new NotifikasiPengajuanCuti($message);
                 $guru->notify($notification);
 

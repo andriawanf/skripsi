@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     {{-- Logo --}}
-    <link rel="shortcut icon" href="{{url('images/logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('images/logo.png') }}" type="image/x-icon">
     {{-- font customs --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +23,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @livewireStyles
 </head>
+
 <body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
     {{-- loading spinner --}}
     <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
@@ -41,7 +43,24 @@
     </main>
 
 
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password-input");
+            var passwordToggleIcon = document.getElementById("password-toggle-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggleIcon.classList.remove("bx bxs-hide");
+                passwordToggleIcon.classList.add("bx bxs-show");
+            } else {
+                passwordInput.type = "password";
+                passwordToggleIcon.classList.remove("bx bxs-show");
+                passwordToggleIcon.classList.add("bx bxs-hide");
+            }
+        }
+    </script>
     @livewireScripts
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
+
 </html>

@@ -52,14 +52,16 @@ class FormCutiTahunan extends Component
 
     public function submitForm()
     {
-        // Cek apakah ada pengajuan cuti yang masih pending
-        $pendingCuti = Cuti::where('user_id', $this->dataUser)
-            ->where('status', 'Pending')
-            ->orWhere('status', 'Konfirmasi')
-            ->count();
+        // Mendapatkan ID user yang sedang login
+        $userId = Auth::id();
 
-        if ($pendingCuti > 0) {
-            session()->flash('error', 'Anda masih memiliki pengajuan cuti pending.');
+        // Melakukan pengecekan apakah terdapat cuti pending untuk user yang sedang login
+        $cutiPending = User::whereHas('cutis', function ($query) use ($userId) {
+            $query->where('status', 'pending');
+        })->where('id', $userId)->exists();
+
+        if ($cutiPending) {
+            session()->flash('error', 'Anda memiliki cuti yang masih dalam proses persetujuan.');
             return redirect()->route('cuti-tahunan');
         }
 

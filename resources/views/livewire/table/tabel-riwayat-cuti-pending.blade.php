@@ -90,7 +90,7 @@
                             <td class="px-6 py-4 line-clamp-5 w-72">
                                 {{ $item->alasan }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-orange-600">
                                 {{ $item->status }}
                             </td>
                             @if ($item->status == 'Pending')
@@ -182,11 +182,11 @@
                     </div>
                     <div class="mt-4 flex justify-end space-x-2 font-poppins">
                         <button wire:click.prevent="approve"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+                            class="bg-gradient-to-r from-[#B4E080] to-[#8AC054] text-white font-medium py-2 px-4 rounded-lg">
                             Setuju
                         </button>
                         <button wire:click.prevent="batal"
-                            class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded">
+                            class="bg-red-600 text-white font-medium py-2 px-4 rounded-lg">
                             Batal
                         </button>
                     </div>

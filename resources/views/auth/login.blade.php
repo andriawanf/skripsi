@@ -8,8 +8,9 @@
     <title>Login | CIGU</title>
     {{-- vite --}}
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
     {{-- Logo --}}
-    <link rel="shortcut icon" href="{{url('images/logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url('images/logo.png') }}" type="image/x-icon">
     {{-- font customs --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,9 +114,14 @@
                         <div class="mb-6">
                             <label for="password"
                                 class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">password</label>
-                            <input type="password" id="password" name="password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="********" required>
+                            <div class="relative">
+                                <input type="password" id="password-input" name="password"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="********" required>
+                                <button type="button" class="absolute top-1 bottom-0 right-2.5 text-xl font-medium"
+                                    onclick="togglePasswordVisibility()"><i id="password-toggle-icon"
+                                        class='bx bxs-show'></i></button>
+                            </div>
                         </div>
                         <div class="flex items-start mb-6">
                             {{-- <a href="#" for="remember"
@@ -124,9 +130,9 @@
                         <button type="submit"
                             class="text-gray-900 bg-gradient-to-r from-[#B4E080] to-[#8AC054] focus:ring-4 focus:outline-none focus:ring-gren-300 font-medium rounded-xl text-sm w-full px-5 py-2.5 text-center">Submit</button>
                     </form>
-                    <div class="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
+                    {{-- <div class="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
                         Don't have an account ? <a href="{{route('register')}}" class="cursor-pointer text-[#B4E080] hover:text-[#8AC054]">Register</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -135,13 +141,31 @@
             <div class="w-full px-24 z-10 text-white flex flex-row justify-center items-center">
                 <img src="{{ url('images/logo.png') }}" alt="logo sekolah" class="w-28 mr-6">
                 <div class="font-poppins">
-                    <h1 class="text-5xl font-bold text-left tracking-wide">Website <span class="text-[#8AC054]">CIGU</span></h1>
-                    <p class="text-2xl mt-4">Inovasi Cerdas untuk Kemudahan Pengajuan Cuti Guru Mts At-Tarbiyah Gunungsari.</p>
+                    <h1 class="text-5xl font-bold text-left tracking-wide">Website <span
+                            class="text-[#8AC054]">CIGU</span></h1>
+                    <p class="text-2xl mt-4">Inovasi Cerdas untuk Kemudahan Pengajuan Cuti Guru Mts At-Tarbiyah
+                        Gunungsari.</p>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password-input");
+            var passwordToggleIcon = document.getElementById("password-toggle-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggleIcon.classList.remove("bx bxs-hide");
+                passwordToggleIcon.classList.add("bx bxs-show");
+            } else {
+                passwordInput.type = "password";
+                passwordToggleIcon.classList.remove("bx bxs-show");
+                passwordToggleIcon.classList.add("bx bxs-hide");
+            }
+        }
+    </script>
     @livewireScripts
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
