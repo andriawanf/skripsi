@@ -3,12 +3,8 @@
         <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all-search" type="checkbox"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                        </div>
+                    <th scope="col" class="px-6 py-3">
+                        No
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Foto
@@ -17,13 +13,19 @@
                         Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        NIP
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Pangkat
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Satuan Organisasi
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                         Saldo Cuti
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Email
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Aksi
@@ -34,12 +36,8 @@
                 @foreach ($users as $item)
                     <tr
                         class="bg-white border-b border-gray-300 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="w-4 p-4">
-                            <div class="flex items-center">
-                                <input id="checkbox-table-search-1" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                            </div>
+                        <td class="px-6 py-4 text-base font-semibold text-gray-900">
+                            {{ $nomor++ }}
                         </td>
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
                             @if ($item->foto == 'images/logo.png')
@@ -58,13 +56,19 @@
                             </div>
                         </th>
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
-                            {{ $item->pangkat }}
+                            {{ $item->nip }}
                         </td>
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
+                            {{ $item->pangkat }}
+                        </td>
+                        <td class="px-6 py-4 text-base font-semibold text-gray-900 whitespace-nowrap">
                             {{ $item->satuan_organisasi }}
                         </td>
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
                             {{ $item->saldo_cuti }}
+                        </td>
+                        <td class="px-6 py-4 text-base font-semibold text-gray-900">
+                            {{ $item->email }}
                         </td>
                         <td class="px-6 py-4 flex flex-row gap-3">
                             <!-- Modal toggle -->
@@ -78,56 +82,53 @@
                 @endforeach
             </tbody>
         </table>
-        <nav class="flex items-center justify-between py-4 px-4 w-full" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                    class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                    class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-            <ul class="inline-flex items-center -space-x-px">
-                <li>
-                    <a href="#"
-                        class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <span class="sr-only">Previous</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                    <a href="#" aria-current="page"
-                        class="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <span class="sr-only">Next</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
+        <nav class="flex items-center justify-between py-4 px-4 w-full">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex">
+                    <div class="flex justify-start">
+                        <!-- Tombol Sebelumnya -->
+                        @if ($users->onFirstPage())
+                            <span class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Sebelumnya
+                            </span>
+                        @else
+                            <button wire:click.prevent="previousPage" class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium text-white bg-[#8AC054] rounded-lg">
+                                Sebelumnya
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            
+                <div class="flex">
+                    <div class="flex justify-center space-x-1">
+                        <!-- Nomor Halaman -->
+                        @if ($users->lastPage() > 1)
+                            @for ($i = 1; $i <= $users->lastPage(); $i++)
+                                @if ($i == $users->currentPage())
+                                    <span class="px-4 py-2 text-white text-xs md:text-sm bg-[#8AC054] rounded-lg">{{ $i }}</span>
+                                @else
+                                    <button wire:click.prevent="gotoPage({{ $i }})" class="px-4 py-2 text-gray-500 text-xs md:text-sm bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
+                                @endif
+                            @endfor
+                        @endif
+                    </div>
+                </div>
+            
+                <div class="flex">
+                    <div class="flex justify-end">
+                        <!-- Tombol Selanjutnya -->
+                        @if ($users->hasMorePages())
+                            <button wire:click.prevent="nextPage" class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium bg-[#8AC054] rounded-lg">
+                                Selanjutnya
+                            </button>
+                        @else
+                            <span class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Selanjutnya
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </nav>
         <!-- Edit user modal -->
         <div id="editUserModal" tabindex="-1" aria-hidden="true" wire:ignore.self

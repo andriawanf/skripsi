@@ -44,19 +44,30 @@
             <div class="flex justify-between items-center w-full mb-3 text-[10px]">
                 <h1 class="font-semibold text-lg">Data Guru</h1>
                 <div class="flex flex-row space-x-2">
+                    {{-- tambah data guru --}}
                     <button
-                        class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg flex flex-row space-x-2 items-center"
+                        class="hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg md:flex md:flex-row space-x-1 md:space-x-2 justify-center items-center"
                         data-modal-target="addGuru" data-modal-show="addGuru">
-                        <i class='bx bx-plus' class="text-lg"></i>
-                        <span>Tambah Data Guru</span>
+                        <i class='bx bx-plus' class="text-xs md:text-lg"></i>
+                        <span>Tambah Data</span>
                     </button>
+                    <button
+                        class="md:hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg flex flex-row space-x-1 md:space-x-2 justify-center items-center"
+                        data-modal-target="addGuru" data-modal-show="addGuru">
+                        <i class='bx bx-plus' class="text-xs md:text-lg"></i>
+                    </button>
+                    {{-- cetak laporan --}}
                     <div
-                        class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg flex flex-row space-x-2 justify-center items-center">
+                        class="hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg md:flex md:flex-row space-x-2 justify-center items-center">
                         <i class='bx bxs-printer'></i>
                         <a href="{{ route('download-data-guru') }}">Cetak Laporan</a>
                     </div>
+                    <div
+                        class="md:hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg flex flex-row space-x-2 justify-center items-center">
+                        <a href="{{ route('download-data-guru') }}"><i class='bx bxs-printer'></i></a>
+                    </div>
                 </div>
-                <!-- Edit user modal -->
+                <!-- tambah user modal -->
                 <div id="addGuru" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
                     <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-lg">
@@ -67,7 +78,7 @@
                             <!-- Modal header -->
                             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Edit user
+                                    Tambah Data Guru
                                 </h3>
                                 <button type="button"
                                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"

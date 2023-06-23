@@ -1,4 +1,4 @@
-<div class="w-full h-fit relative overflow-hidden bg-gradient-to-tr from-[#4B89DA] to-[#73B1F4] rounded-2xl shadow-md border border-[#4B89DA]">
+<div class="w-full h-full relative overflow-hidden bg-gradient-to-tr from-[#4B89DA] to-[#73B1F4] rounded-2xl shadow-md border border-[#4B89DA]">
     <svg class="absolute bottom-0 left-0 mb-0" viewBox="0 0 375 283" fill="none"
         style="transform: scale(1.5); opacity: 0.2;">
         <rect x="180" y="230" width="152" height="152" rx="10" transform="rotate(-45 159.52 175)"

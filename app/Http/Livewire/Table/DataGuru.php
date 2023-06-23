@@ -18,20 +18,26 @@ class DataGuru extends Component
 
     public $nama, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id, $userAccount;
     public $pagination = 10;
+    public $nomor = 1;
 
     public function render()
     {
         if (Auth::user()->role == 'admin') {
             $users = User::where('role', 'user')->paginate($this->pagination);
-        } elseif(Auth::user()->role == 'kepala_sekolah') {
+        } elseif (Auth::user()->role == 'kepala_sekolah') {
             $users = User::where('role', 'admin')
-            ->orWhere('role', 'user')
-            ->paginate($this->pagination);
+                ->orWhere('role', 'user')
+                ->paginate($this->pagination);
         }
-        
+
         return view('livewire.table.data-guru', compact('users'));
     }
 
+    public function updatedPage()
+    {
+        $this->nomor = ($this->page - 1) * $this->pagination + 1;
+    }
+    
     protected function rules()
     {
         return [
@@ -71,7 +77,6 @@ class DataGuru extends Component
         $this->satuan_organisasi = $gurus->satuan_organisasi;
         $this->saldo_cuti = $gurus->saldo_cuti;
         $this->foto = $gurus->foto;
-        
     }
 
     public function update()
@@ -98,7 +103,7 @@ class DataGuru extends Component
             'saldo_cuti' => $this->saldo_cuti,
         ]);
 
-        session()->flash('message','Data Guru Berhasil Diperbaharui!');
+        session()->flash('message', 'Data Guru Berhasil Diperbaharui!');
         $this->resetInputFields();
         return redirect()->route('data-guru');
     }
@@ -111,7 +116,7 @@ class DataGuru extends Component
     public function delete()
     {
         $userid = User::find($this->userAccount);
-        
+
         // Hapus data cuti terkait dengan guru
         Cuti::where('user_id', $userid->id)->delete();
         $userid->delete();

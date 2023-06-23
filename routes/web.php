@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/tambah-kategori', [AdminController::class, 'storeKategori'])->name('store-data-kategori');
 });
 Route::get('/download-laporan', [AdminController::class, 'exportPDF'])->name('download-laporan');
-Route::get('/download-data-guru', [AdminController::class, 'exportPDFDataGuru'])->name('download-data-guru');
+Route::get('/download-data-guru', [AdminController::class, 'exportEXCELDataGuru'])->name('download-data-guru');
 Route::get('/download-riwayat-cuti-guru', [AdminController::class, 'exportPDFRiwayatCutiGuru'])->name('download-riwayat-cuti-guru');
 Route::get('/export-cuti-guru/{id}', [AdminController::class, 'exportDocx'])->name('download-cuti-guru');
 Route::get('/cetakLaporan', [AdminController::class, 'cetakLaporan'])->name('cetakLaporan');

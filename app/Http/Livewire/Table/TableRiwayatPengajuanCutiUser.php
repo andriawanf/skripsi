@@ -32,10 +32,16 @@ class TableRiwayatPengajuanCutiUser extends Component
     public $sortOrder = "asc";
     public $sortLink = '<i class="sorticon bx bxs-up-arrow"></i>';
     public $searchTerm = "";
+    public $nomor = 1;
 
     public function updated()
     {
         $this->resetPage();
+    }
+
+    public function updatedPage()
+    {
+        $this->nomor = ($this->page - 1) * $this->perPage + 1;
     }
 
     public function sortOrder($columnName = "")

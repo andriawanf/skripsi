@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\LaporanCutiGuruExport;
+use App\Exports\LaporanDataGuru;
 use App\Http\Controllers\Controller;
 use App\Models\Cuti;
 use App\Models\Kategori;
@@ -104,17 +105,20 @@ class AdminController extends Controller
         return $pdf->stream('laporan_cuti_guru.pdf');
     }
 
-    public function exportPDFDataGuru()
+    public function exportEXCELDataGuru()
     {
-        $dataGuru = User::all();
-        $options = new Options();
-        $options->set('defaultFont', 'Poppins');
-        $pdf = new Dompdf($options);
-        $pdf->loadHtml(View::make('livewire.template.data-guru-pdf', compact('dataGuru'))->render());
-        $pdf->setPaper('A4', 'landscape');
-        $pdf->render();
+        $dataGuru = User::where('role', 'user')->get();
 
-        return $pdf->stream('laporan_data_guru.pdf');
+        // Generate dan simpan file Excel menggunakan Laravel Excel
+        return Excel::download(new LaporanDataGuru($dataGuru), 'laporan_data_guru.xlsx');
+        // $options = new Options();
+        // $options->set('defaultFont', 'Poppins');
+        // $pdf = new Dompdf($options);
+        // $pdf->loadHtml(View::make('livewire.template.data-guru-pdf', compact('dataGuru'))->render());
+        // $pdf->setPaper('A4', 'landscape');
+        // $pdf->render();
+
+        // return $pdf->stream('laporan_data_guru.pdf');
     }
 
     public function exportPDFRiwayatCutiGuru()

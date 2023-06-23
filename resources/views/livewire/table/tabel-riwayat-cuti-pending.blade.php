@@ -15,7 +15,7 @@
                         </svg>
                     </div>
                     <input type="search" wire:model='searchTerm'
-                        class="block w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                        class="block w-full md:w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
                         placeholder="Search Mockups, Logos...">
                 </div>
             </div>
@@ -59,13 +59,13 @@
             </thead>
             <tbody class="font-medium">
                 @if ($cutiPending->count())
-                {{-- table admin --}}
+                    {{-- table admin --}}
                     @foreach ($cutiPending as $item)
                         <tr
                             class="bg-white border-b border-gray-300 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $loop->iteration }}
+                                {{ $nomor++ }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -107,7 +107,7 @@
                             @endif
                         </tr>
                     @endforeach
-                {{-- Table Kepsek --}}
+                    {{-- Table Kepsek --}}
                 @elseif ($cutiKonfirmasi->count())
                     @foreach ($cutiKonfirmasi as $item)
                         <tr
@@ -174,7 +174,8 @@
                         <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload file</span>
                         <input type="file" wire:model="fotoTandaTangan" aria-describedby="helper-text-explanation"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400"> <span class="text-red-700">*</span>File foto tanda tangan harus dalam format .PNG </p>
+                        <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400"> <span
+                                class="text-red-700">*</span>File foto tanda tangan harus dalam format .PNG </p>
                         @error('fotoTandaTangan')
                             <span class="mt-2 text-sm text-red-500">{{ $message }}</span>
                         @enderror
@@ -184,7 +185,8 @@
                             class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
                             Setuju
                         </button>
-                        <button wire:click.prevent="batal" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded">
+                        <button wire:click.prevent="batal"
+                            class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded">
                             Batal
                         </button>
                     </div>
@@ -193,15 +195,115 @@
         @endif
     </div>
     @if (Auth::user()->role == 'admin')
-        <div class="flex items-center justify-end py-4 px-4 mt-4" aria-label="Table navigation">
-            Menampilkan {{ $cutiPending->count() }} dari {{ $cutiGuruTotal }} hasil
-            {{ $cutiPending->links() }}
-        </div>
+        <nav class="flex items-center justify-between py-4 px-4 w-full">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex">
+                    <div class="flex justify-start">
+                        <!-- Tombol Sebelumnya -->
+                        @if ($cutiPending->onFirstPage())
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-md cursor-not-allowed">
+                                Sebelumnya
+                            </span>
+                        @else
+                            <button wire:click.prevent="previousPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#8AC054] rounded-md">
+                                Sebelumnya
+                            </button>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-center space-x-1">
+                        <!-- Nomor Halaman -->
+                        @if ($cutiPending->lastPage() > 1)
+                            @for ($i = 1; $i <= $cutiPending->lastPage(); $i++)
+                                @if ($i == $cutiPending->currentPage())
+                                    <span
+                                        class="px-4 py-2 text-white bg-[#8AC054] rounded-md">{{ $i }}</span>
+                                @else
+                                    <button wire:click.prevent="gotoPage({{ $i }})"
+                                        class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">{{ $i }}</button>
+                                @endif
+                            @endfor
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-end">
+                        <!-- Tombol Selanjutnya -->
+                        @if ($cutiPending->hasMorePages())
+                            <button wire:click.prevent="nextPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium bg-[#8AC054] rounded-md">
+                                Selanjutnya
+                            </button>
+                        @else
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-md cursor-not-allowed">
+                                Selanjutnya
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </nav>
     @else
-        <div class="flex items-center justify-end py-4 px-4 mt-4" aria-label="Table navigation">
-            Menampilkan {{ $cutiKonfirmasi->count() }} dari {{ $cutiGuruTotal }} hasil
-            {{ $cutiKonfirmasi->links() }}
-        </div>
+        <nav class="flex items-center justify-between py-4 px-4 w-full">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex">
+                    <div class="flex justify-start">
+                        <!-- Tombol Sebelumnya -->
+                        @if ($cutiKonfirmasi->onFirstPage())
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Sebelumnya
+                            </span>
+                        @else
+                            <button wire:click.prevent="previousPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#8AC054] rounded-lg">
+                                Sebelumnya
+                            </button>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-center space-x-1">
+                        <!-- Nomor Halaman -->
+                        @if ($cutiKonfirmasi->lastPage() > 1)
+                            @for ($i = 1; $i <= $cutiKonfirmasi->lastPage(); $i++)
+                                @if ($i == $cutiKonfirmasi->currentPage())
+                                    <span
+                                        class="px-4 py-2 text-white bg-[#8AC054] rounded-lg">{{ $i }}</span>
+                                @else
+                                    <button wire:click.prevent="gotoPage({{ $i }})"
+                                        class="px-4 py-2 text-gray-500 bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
+                                @endif
+                            @endfor
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-end">
+                        <!-- Tombol Selanjutnya -->
+                        @if ($cutiKonfirmasi->hasMorePages())
+                            <button wire:click.prevent="nextPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium bg-[#8AC054] rounded-lg">
+                                Selanjutnya
+                            </button>
+                        @else
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Selanjutnya
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </nav>
     @endif
 
 

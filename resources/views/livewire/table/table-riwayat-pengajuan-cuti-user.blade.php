@@ -84,7 +84,7 @@
                             class="bg-white border-b border-gray-300 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $loop->iteration }}
+                                {{ $nomor++ }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -138,10 +138,54 @@
         </table>
     </div>
     @if (Request::is('riwayat-pengajuan-cuti'))
-        <div class="flex items-center justify-end py-4 px-4 mt-2" aria-label="Table navigation">
-            Menampilkan {{ $cutiGuru->count() }} dari {{ $cutiGuruTotal }} hasil
-            {{ $cutiGuru->links() }}
+    <nav class="flex items-center justify-between py-4 px-4 w-full">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex">
+                <div class="flex justify-start">
+                    <!-- Tombol Sebelumnya -->
+                    @if ($cutiGuru->onFirstPage())
+                        <span class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                            Sebelumnya
+                        </span>
+                    @else
+                        <button wire:click.prevent="previousPage" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#8AC054] rounded-lg">
+                            Sebelumnya
+                        </button>
+                    @endif
+                </div>
+            </div>
+        
+            <div class="flex">
+                <div class="flex justify-center space-x-1">
+                    <!-- Nomor Halaman -->
+                    @if ($cutiGuru->lastPage() > 1)
+                        @for ($i = 1; $i <= $cutiGuru->lastPage(); $i++)
+                            @if ($i == $cutiGuru->currentPage())
+                                <span class="px-4 py-2 text-white bg-[#8AC054] rounded-lg">{{ $i }}</span>
+                            @else
+                                <button wire:click.prevent="gotoPage({{ $i }})" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
+                            @endif
+                        @endfor
+                    @endif
+                </div>
+            </div>
+        
+            <div class="flex">
+                <div class="flex justify-end">
+                    <!-- Tombol Selanjutnya -->
+                    @if ($cutiGuru->hasMorePages())
+                        <button wire:click.prevent="nextPage" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-[#8AC054] rounded-lg">
+                            Selanjutnya
+                        </button>
+                    @else
+                        <span class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                            Selanjutnya
+                        </span>
+                    @endif
+                </div>
+            </div>
         </div>
+    </nav>
     @endif
 
     <!-- Main modal Edit -->

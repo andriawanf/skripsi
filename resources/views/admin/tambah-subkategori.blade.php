@@ -34,7 +34,7 @@
     <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Data Guru</h1>
+            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Data Cuti</h1>
             <p class="font-poppins font-medium text-sm text-gray-900 mt-1">tabel data guru Mts At-Tarbiyah Gunungsari
             </p>
         </div>
@@ -44,8 +44,11 @@
             <div class="flex justify-between items-center w-full mb-3 text-[10px]">
                 <h1 class="font-semibold text-lg">Pengaturan Data Sub-kategori</h1>
                 <button
-                    class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg"
-                    data-modal-target="addSubkategori" data-modal-show="addSubkategori">Tambah Sub-kategori</button>
+                    class="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
+                    data-modal-target="addSubkategori" data-modal-show="addSubkategori"><i class='bx bx-plus' class="text-xs md:text-lg"></i><span>Tambah Sub-kategori</span></button>
+                <button
+                    class="md:hidden block px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
+                    data-modal-target="addSubkategori" data-modal-show="addSubkategori">+</button>
                 <!-- Edit subkategori modal -->
                 <div id="addSubkategori" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
