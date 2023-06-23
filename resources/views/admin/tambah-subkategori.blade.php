@@ -112,7 +112,7 @@
             </div>
             @if (session()->has('message'))
                 <div id="toast-default"
-                    class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow"
+                    class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow mb-6"
                     role="alert">
                     <div
                         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">

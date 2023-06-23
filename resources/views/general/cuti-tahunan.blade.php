@@ -36,7 +36,7 @@
         <livewire:layout.header />
         @if (session()->has('message'))
             <div id="toast-default"
-                class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow"
+                class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow mb-6"
                 role="alert">
                 <div
                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
@@ -65,7 +65,7 @@
         @endif
         @if (session()->has('error'))
             <div id="toast-default"
-                class="flex items-center w-full p-4 text-black bg-red-600 bg-opacity-30 rounded-lg shadow"
+                class="flex items-center w-full p-4 text-black bg-red-600/25 rounded-lg shadow mb-6"
                 role="alert">
                 <div
                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
@@ -77,8 +77,8 @@
                     </svg>
                     <span class="sr-only">Fire icon</span>
                 </div>
-                <div class="ml-3 text-sm font-normal"><span class="font-medium">Sukses! </span>
-                    {{ session('message') }}</div>
+                <div class="ml-3 text-sm font-normal"><span class="font-medium">Gagal! </span>
+                    {{ session('error') }}</div>
                 <button type="button"
                     class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
                     data-dismiss-target="#toast-default" aria-label="Close">

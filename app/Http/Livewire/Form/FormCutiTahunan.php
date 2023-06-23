@@ -59,7 +59,7 @@ class FormCutiTahunan extends Component
             ->count();
 
         if ($pendingCuti > 0) {
-            session()->flash('error', 'Anda masih memiliki pengajuan cuti yang masih menunggu persetujuan.');
+            session()->flash('error', 'Anda masih memiliki pengajuan cuti pending.');
             return redirect()->route('cuti-tahunan');
         }
 
