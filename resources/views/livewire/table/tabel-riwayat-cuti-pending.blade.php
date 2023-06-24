@@ -90,8 +90,12 @@
                             <td class="px-6 py-4 line-clamp-5 w-72">
                                 {{ $item->alasan }}
                             </td>
-                            <td class="px-6 py-4 text-orange-600">
-                                {{ $item->status }}
+                            <td class="px-6 py-4">
+                                @if ($item->status === 'Pending')
+                                    <p class="text-orange-500">{{ $item->status }}</p>
+                                @elseif ($item->status === 'Konfirmasi')
+                                    <p class="text-[#4B89DA]">{{ $item->status }}</p>
+                                @endif
                             </td>
                             @if ($item->status == 'Pending')
                                 @if (Auth::user()->role == 'admin')
@@ -140,7 +144,11 @@
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $item->status }}
+                                @if ($item->status === 'Pending')
+                                    <p class="text-orange-500">{{ $item->status }}</p>
+                                @elseif ($item->status === 'Konfirmasi')
+                                    <p class="text-[#4B89DA]">{{ $item->status }}</p>
+                                @endif
                             </td>
                             @if ($item->status == 'Konfirmasi')
                                 @if (Auth::user()->role == 'kepala_sekolah')
