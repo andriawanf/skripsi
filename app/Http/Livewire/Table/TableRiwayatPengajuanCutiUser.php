@@ -63,7 +63,12 @@ class TableRiwayatPengajuanCutiUser extends Component
     {
         $guruId = Auth::id();
 
-        $cutiGuru = Cuti::where('user_id', $guruId)->orderBy($this->orderColumn, $this->sortOrder)->select('*');
+        if (Auth::user()->role == 'user') {
+            $cutiGuru = Cuti::where('user_id', $guruId)->orderBy($this->orderColumn, $this->sortOrder)->select('*');
+        } else {
+            $cutiGuru = Cuti::whereIn('status', ['Setuju','Konfirmasi','Tolak'])->orderBy($this->orderColumn, $this->sortOrder)->select('*');
+        }
+        
 
         if (!empty($this->searchTerm)) {
             $cutiGuru->where(function ($query) {

@@ -72,9 +72,11 @@
                     <th scope="col" class="px-6 py-3 whitespace-nowrap sort" wire:click="sortOrder('status')">
                         status {!! $orderColumn == 'status' ? $sortLink : '' !!}
                     </th>
-                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                        Action
-                    </th>
+                    @if (auth()->user()->role === 'user')
+                        <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                            Action
+                        </th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="font-medium">
@@ -110,21 +112,29 @@
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $item->status }}
+                                @if ($item->status === 'Setuju')
+                                    <p class="text-[#8AC054]">{{ $item->status }}</p>
+                                @elseif ($item->status === 'Konfirmasi')
+                                    <p class="text-[#4B89DA]">{{ $item->status }}</p>
+                                @else
+                                    <p class="text-red-500">{{ $item->status }}</p>
+                                @endif
                             </td>
-                            @if ($item->status == 'Pending' || $item->status == 'Konfirmasi')
-                                <td
-                                    class="font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-col gap-2">
-                                    <button wire:click.prevent='editCuti({{ $item->id }})'
-                                        class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Edit</button>
-                                    <button wire:click.prevent='confirmDelete({{ $item->id }})'
-                                        class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline">Hapus</button>
-                                </td>
-                            @else
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <button wire:click.prevent='exportDocx({{ $item->id }})'
-                                        class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Download</button>
-                                </td>
+                            @if (auth()->user()->role === 'user')
+                                @if ($item->status == 'Pending' || $item->status == 'Konfirmasi')
+                                    <td
+                                        class="font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-col gap-2">
+                                        <button wire:click.prevent='editCuti({{ $item->id }})'
+                                            class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Edit</button>
+                                        <button wire:click.prevent='confirmDelete({{ $item->id }})'
+                                            class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline">Hapus</button>
+                                    </td>
+                                @else
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <button wire:click.prevent='exportDocx({{ $item->id }})'
+                                            class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Download</button>
+                                    </td>
+                                @endif
                             @endif
                         </tr>
                     @endforeach
@@ -138,54 +148,60 @@
         </table>
     </div>
     @if (Request::is('riwayat-pengajuan-cuti'))
-    <nav class="flex items-center justify-between py-4 px-4 w-full">
-        <div class="flex items-center justify-between w-full">
-            <div class="flex">
-                <div class="flex justify-start">
-                    <!-- Tombol Sebelumnya -->
-                    @if ($cutiGuru->onFirstPage())
-                        <span class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
-                            Sebelumnya
-                        </span>
-                    @else
-                        <button wire:click.prevent="previousPage" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#8AC054] rounded-lg">
-                            Sebelumnya
-                        </button>
-                    @endif
+        <nav class="flex items-center justify-between py-4 px-4 w-full">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex">
+                    <div class="flex justify-start">
+                        <!-- Tombol Sebelumnya -->
+                        @if ($cutiGuru->onFirstPage())
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Sebelumnya
+                            </span>
+                        @else
+                            <button wire:click.prevent="previousPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#8AC054] rounded-lg">
+                                Sebelumnya
+                            </button>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-center space-x-1">
+                        <!-- Nomor Halaman -->
+                        @if ($cutiGuru->lastPage() > 1)
+                            @for ($i = 1; $i <= $cutiGuru->lastPage(); $i++)
+                                @if ($i == $cutiGuru->currentPage())
+                                    <span
+                                        class="px-4 py-2 text-white bg-[#8AC054] rounded-lg">{{ $i }}</span>
+                                @else
+                                    <button wire:click.prevent="gotoPage({{ $i }})"
+                                        class="px-4 py-2 text-gray-500 bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
+                                @endif
+                            @endfor
+                        @endif
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex justify-end">
+                        <!-- Tombol Selanjutnya -->
+                        @if ($cutiGuru->hasMorePages())
+                            <button wire:click.prevent="nextPage"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium bg-[#8AC054] rounded-lg">
+                                Selanjutnya
+                            </button>
+                        @else
+                            <span
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                                Selanjutnya
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
-        
-            <div class="flex">
-                <div class="flex justify-center space-x-1">
-                    <!-- Nomor Halaman -->
-                    @if ($cutiGuru->lastPage() > 1)
-                        @for ($i = 1; $i <= $cutiGuru->lastPage(); $i++)
-                            @if ($i == $cutiGuru->currentPage())
-                                <span class="px-4 py-2 text-white bg-[#8AC054] rounded-lg">{{ $i }}</span>
-                            @else
-                                <button wire:click.prevent="gotoPage({{ $i }})" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
-                            @endif
-                        @endfor
-                    @endif
-                </div>
-            </div>
-        
-            <div class="flex">
-                <div class="flex justify-end">
-                    <!-- Tombol Selanjutnya -->
-                    @if ($cutiGuru->hasMorePages())
-                        <button wire:click.prevent="nextPage" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-[#8AC054] rounded-lg">
-                            Selanjutnya
-                        </button>
-                    @else
-                        <span class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
-                            Selanjutnya
-                        </span>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </nav>
+        </nav>
     @endif
 
     <!-- Main modal Edit -->

@@ -104,7 +104,13 @@
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $item->status }}
+                                @if ($item->status === 'Setuju')
+                                    <p class="text-[#8AC054]">{{ $item->status }}</p>
+                                @elseif ($item->status === 'Konfirmasi')
+                                    <p class="text-[#4B89DA]">{{ $item->status }}</p>
+                                @else
+                                    <p class="text-red-500">{{ $item->status }}</p>
+                                @endif
                             </td>
                             @if ($item->status == 'Pending' && Auth::user()->role == 'admin')
                                 <td class="px-6 py-4">
