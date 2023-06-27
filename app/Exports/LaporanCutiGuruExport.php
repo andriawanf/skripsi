@@ -50,6 +50,7 @@ class LaporanCutiGuruExport implements FromCollection, WithHeadings, WithMapping
             $cuti->tanggal_mulai,
             $cuti->tanggal_akhir,
             $cuti->durasi,
+            $cuti->alasan,
             $cuti->status,
             // Tambahkan kolom-kolom lain yang ingin Anda export dan atur tampilan
         ];
@@ -77,6 +78,7 @@ class LaporanCutiGuruExport implements FromCollection, WithHeadings, WithMapping
             'Tanggal Mulai',
             'Tanggal Selesai',
             'Total Cuti',
+            'Alasan Cuti',
             'Status',
         ];
     }

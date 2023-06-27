@@ -214,7 +214,7 @@ class TableRiwayatPengajuanCutiUser extends Component
         } elseif($namaSubkategori === 'Cuti Melahirkan') {
             $templatePath = public_path('templates/surat_cuti_melahirkan.docx');
         } elseif ($namaSubkategori === 'Cuti Sakit') {
-            $templatePath = public_path('templates/surat_cuti_guru.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
+            $templatePath = public_path('templates/surat_cuti_sakit.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
         } else {
             $templatePath = public_path('templates/surat_cuti_lainnya.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
         }
