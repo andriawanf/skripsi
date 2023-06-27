@@ -45,7 +45,7 @@
                 <h1 class="font-semibold text-lg">Pengaturan Data Kategori</h1>
                 <button
                     class="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
-                    data-modal-target="addKategori" data-modal-show="addKategori"><i class='bx bx-plus' class="text-xs md:text-lg"></i><span>Tambah Sub-kategori</span></button>
+                    data-modal-target="addKategori" data-modal-show="addKategori"><i class='bx bx-plus' class="text-xs md:text-lg"></i><span>Tambah Kategori</span></button>
                 <button
                     class="block md:hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
                     data-modal-target="addKategori" data-modal-show="addKategori">+</button>
