@@ -59,6 +59,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/tambah-subkategori', [AdminController::class, 'storeSubkategori'])->name('store-data-subkategori');
     Route::get('/tambah-kategori', [AdminController::class, 'showTambahKategori'])->name('tambah-kategori');
     Route::post('/tambah-kategori', [AdminController::class, 'storeKategori'])->name('store-data-kategori');
+    // Route::get('/edit-kategori/edit/{id}', [AdminController::class, 'editKategori'])->name('edit-data-kategori');
+    Route::post('/tambah-kategori/{id}', [AdminController::class, 'updateKategori'])->name('update-data-kategori');
 });
 Route::get('/download-laporan', [AdminController::class, 'exportPDF'])->name('download-laporan');
 Route::get('/download-data-guru', [AdminController::class, 'exportEXCELDataGuru'])->name('download-data-guru');

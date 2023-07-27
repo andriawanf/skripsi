@@ -25,7 +25,7 @@
 
 <body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -34,25 +34,25 @@
     <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Data Cuti</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">tabel data guru Mts At-Tarbiyah Gunungsari
+            <h1 class="text-2xl font-semibold text-gray-900 font-poppins">Data Cuti</h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">tabel data guru Mts At-Tarbiyah Gunungsari
             </p>
         </div>
 
         {{-- form dan tabel Kategori --}}
-        <div class="font-poppins mb-16">
+        <div class="mb-16 font-poppins">
             <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-                <h1 class="font-semibold text-lg">Pengaturan Data Kategori</h1>
+                <h1 class="text-lg font-semibold">Pengaturan Data Kategori</h1>
                 <button
                     class="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
                     data-modal-target="addKategori" data-modal-show="addKategori"><i class='bx bx-plus' class="text-xs md:text-lg"></i><span>Tambah Kategori</span></button>
                 <button
                     class="block md:hidden px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
                     data-modal-target="addKategori" data-modal-show="addKategori">+</button>
-                <!-- Edit kategori modal -->
+                <!-- Tambah kategori modal -->
                 <div id="addKategori" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
-                    <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-lg">
+                    <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-xl">
                         <!-- Modal content -->
                         <form action="{{ route('store-data-kategori') }}" method="POST" enctype="multipart/form-data"
                             class="relative">
@@ -90,7 +90,7 @@
                             <div
                                 class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button type="submit"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
+                                    class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan
                                     data</button>
                             </div>
                         </form>
@@ -102,7 +102,7 @@
                     class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow mb-6"
                     role="alert">
                     <div
-                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
+                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black rounded-lg bg-white/25">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -129,7 +129,7 @@
             {{-- tabel kategori --}}
             <div class="font-poppins">
                 @if ($errors->any())
-                    <div class="font-poppins text-red-700 text-base font-medium">
+                    <div class="text-base font-medium text-red-700 font-poppins">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -137,7 +137,7 @@
                         </ul>
                     </div>
                 @endif
-                <div class="relative overflow-x-auto shadow-lg rounded-lg sm:rounded-xl">
+                <div class="relative overflow-x-auto rounded-lg shadow-lg sm:rounded-xl">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -171,64 +171,65 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <!-- Modal toggle -->
-                                        <a href="#" type="button" data-modal-target="EditKategori"
-                                            data-modal-show="EditKategori"
+                                        <button type="button" data-modal-target="EditKategori-{{$item->id}}"
+                                            data-modal-show="EditKategori-{{$item->id}}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit
-                                        </a>
+                                        </button>
+                                        <!-- Edit kategori modal -->
+                    <div id="EditKategori-{{$item->id}}" tabindex="-1" aria-hidden="true"
+                    class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
+                    <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-xl">
+                        <!-- Modal content -->
+                        <form action="{{route('update-data-kategori', $item->id)}}" method="POST"
+                            enctype="multipart/form-data" class="relative">
+                            @csrf
+                            <!-- Modal header -->
+                            <div
+                                class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Edit data Kategori
+                                </h3>
+                                <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="EditKategori-{{$item->id}}">
+                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-6 space-y-6">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-6">
+                                        <label for="kategori"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">nama
+                                            Kategori</label>
+                                        <input type="text" name="nama" id="nama"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            value="{{$item->nama}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div
+                                class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button type="submit"
+                                    class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan
+                                    data</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     {{ $kategori->links() }}
-                    <!-- Edit kategori modal -->
-                    <div id="EditKategori" tabindex="-1" aria-hidden="true"
-                        class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
-                        <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-lg">
-                            <!-- Modal content -->
-                            <form action="{{ route('store-data-kategori') }}" method="POST"
-                                enctype="multipart/form-data" class="relative">
-                                @csrf
-                                <!-- Modal header -->
-                                <div
-                                    class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Tambah data Kategori
-                                    </h3>
-                                    <button type="button"
-                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="EditKategori">
-                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-6 space-y-6">
-                                    <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6 sm:col-span-6">
-                                            <label for="kategori"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">nama
-                                                Kategori</label>
-                                            <input type="text" name="nama" id="nama"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Nama kategori" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal footer -->
-                                <div
-                                    class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                    <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
-                                        data</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    
                 </div>
 
             </div>

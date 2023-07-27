@@ -48,12 +48,13 @@ class AdminController extends Controller
         $subkategori = Subkategori::all();
         return view('admin.tambah-kategori', compact('kategori', 'subkategori'));
     }
+    
+    public function updateKategori(Request $request, $id)
+    {   
+        $kategoriCuti = Kategori::findOrFail($id);
+        $kategoriCuti->update($request->all());
 
-    public function showTambahSubkategori()
-    {
-        $kategori = Kategori::all();
-        $subkategori = Subkategori::paginate(10);
-        return view('admin.tambah-subkategori', compact('kategori', 'subkategori'));
+        return redirect()->route('tambah-kategori')->with('message', 'Data kategori cuti berhasil diperbarui.');;
     }
 
     public function storeKategori(Request $request)
@@ -70,6 +71,13 @@ class AdminController extends Controller
 
         // redirecting
         return redirect()->route('tambah-kategori')->with(['message' => 'Kategori baru berhasil ditambahkan!']);
+    }
+
+    public function showTambahSubkategori()
+    {
+        $kategori = Kategori::all();
+        $subkategori = Subkategori::paginate(10);
+        return view('admin.tambah-subkategori', compact('kategori', 'subkategori'));
     }
 
     public function storeSubkategori(Request $request)
