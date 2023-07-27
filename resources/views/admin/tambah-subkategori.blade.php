@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Kategori</title>
+    <title>Tambah Sub-Kategori</title>
     {{-- vite --}}
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
@@ -25,7 +25,7 @@
 
 <body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -34,15 +34,15 @@
     <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Data Cuti</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">tabel data guru Mts At-Tarbiyah Gunungsari
+            <h1 class="text-2xl font-semibold text-gray-900 font-poppins">Data Cuti</h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">tabel data guru Mts At-Tarbiyah Gunungsari
             </p>
         </div>
 
         {{-- form dan tabel sub-kategori --}}
         <div class="font-poppins ">
             <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-                <h1 class="font-semibold text-lg">Pengaturan Data Sub-kategori</h1>
+                <h1 class="text-lg font-semibold">Pengaturan Data Sub-kategori</h1>
                 <button
                     class="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-xs md:text-sm font-medium rounded-lg"
                     data-modal-target="addSubkategori" data-modal-show="addSubkategori"><i class='bx bx-plus' class="text-xs md:text-lg"></i><span>Tambah Sub-kategori</span></button>
@@ -52,7 +52,7 @@
                 <!-- Edit subkategori modal -->
                 <div id="addSubkategori" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
-                    <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-lg">
+                    <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-xl">
                         <!-- Modal content -->
                         <form action="{{ route('store-data-subkategori') }}" method="POST"
                             enctype="multipart/form-data" class="relative">
@@ -115,7 +115,7 @@
                     class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow mb-6"
                     role="alert">
                     <div
-                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
+                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black rounded-lg bg-white/25">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -142,7 +142,7 @@
             {{-- tabel subkategori --}}
             <div class="font-poppins">
                 @if ($errors->any())
-                    <div class="font-poppins text-red-700 text-base font-medium">
+                    <div class="text-base font-medium text-red-700 font-poppins">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -150,8 +150,8 @@
                         </ul>
                     </div>
                 @endif
-                <div class="relative overflow-x-auto shadow-lg rounded-lg sm:rounded-xl">
-                    <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
+                <div class="relative overflow-x-auto rounded-lg shadow-lg sm:rounded-xl">
+                    <table class="w-full text-sm text-left text-gray-500 table-auto dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

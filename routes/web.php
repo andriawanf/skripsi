@@ -31,7 +31,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // guru route
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/form-cuti-tahunan', function () {
+    Route::get('/form-pengajuan-cuti', function () {
         return view('general.cuti-tahunan');
     })->name('cuti-tahunan');
     Route::get('/form-cuti-lainnya', function () {

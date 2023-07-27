@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Pengaturan Profil</title>
 
     {{-- vite --}}
     @vite('resources/css/app.css')
@@ -24,9 +24,9 @@
     @livewireStyles
 </head>
 
-<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white overflow-x-hidden">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -35,8 +35,8 @@
     <main class="my-6 md:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6">
-            <h1 class="font-poppins font-semibold text-lg text-gray-900">Pengaturan Profil</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Atur profil anda dengan baik dan benar!</p>
+            <h1 class="text-lg font-semibold text-gray-900 font-poppins">Pengaturan Profil</h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">Atur profil anda dengan baik dan benar!</p>
         </div>
 
         <livewire:form.pengaturan-profil-user />

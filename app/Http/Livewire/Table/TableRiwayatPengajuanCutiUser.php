@@ -39,11 +39,13 @@ class TableRiwayatPengajuanCutiUser extends Component
         $this->resetPage();
     }
 
+    // penomoran table
     public function updatedPage()
     {
         $this->nomor = ($this->page - 1) * $this->perPage + 1;
     }
 
+    // sorting table
     public function sortOrder($columnName = "")
     {
         $caretOrder = "up";
@@ -66,10 +68,11 @@ class TableRiwayatPengajuanCutiUser extends Component
         if (Auth::user()->role == 'user') {
             $cutiGuru = Cuti::where('user_id', $guruId)->orderBy($this->orderColumn, $this->sortOrder)->select('*');
         } else {
-            $cutiGuru = Cuti::whereIn('status', ['Setuju','Konfirmasi','Tolak'])->orderBy($this->orderColumn, $this->sortOrder)->select('*');
+            $cutiGuru = Cuti::whereIn('status', ['Setuju', 'Konfirmasi', 'Tolak'])->orderBy($this->orderColumn, $this->sortOrder)->select('*');
         }
-        
 
+
+        // searching data table
         if (!empty($this->searchTerm)) {
             $cutiGuru->where(function ($query) {
                 $query->whereHas('user', function ($subQuery) {
@@ -92,34 +95,34 @@ class TableRiwayatPengajuanCutiUser extends Component
 
     public function getCuti()
     {
-        return Cuti::paginate($this->pagination);
+        return Cuti::paginate($this->perPage);
     }
 
     public function editCuti($cutiId)
-{
-    $this->cuti = Cuti::findOrFail($cutiId);
-    $this->kategoriCuti = Kategori::all();
-    $this->subKategoriCuti = Subkategori::all();
-    // Menentukan kategori yang terpilih
-    $this->kategori_dipilih = $this->cuti->kategori->nama;
-    if($this->subkategori_dipilih != null){
-        $this->subkategori_dipilih = $this->cuti->subkategori->nama_subkategoris;
-    }
-    
-    // Mengisi data pengajuan cuti ke dalam properti
-    $this->cutiId = $this->cuti->id;
-    $this->dataUser = $this->cuti->user->name;
-    $this->kategori_id = $this->cuti->kategori_id;
-    $this->subkategori_id = $this->cuti->subkategori_id;
-    $this->alasanCuti = $this->cuti->alasan;
-    $this->tanggal_mulais = $this->cuti->tanggal_mulai;
-    $this->tanggal_akhirs = $this->cuti->tanggal_akhir;
-    $this->file_tanda_tangan = $this->cuti->file_ttd;
-    $this->fileBuktiCuti = $this->cuti->file_bukti;
+    {
+        $this->cuti = Cuti::findOrFail($cutiId);
+        $this->kategoriCuti = Kategori::all();
+        $this->subKategoriCuti = Subkategori::all();
+        // Menentukan kategori yang terpilih
+        $this->kategori_dipilih = $this->cuti->kategori->nama;
+        if ($this->subkategori_dipilih != null) {
+            $this->subkategori_dipilih = $this->cuti->subkategori->nama_subkategoris;
+        }
 
-    // Tampilkan modal edit
-    $this->showModal = true;
-}
+        // Mengisi data pengajuan cuti ke dalam properti
+        $this->cutiId = $this->cuti->id;
+        $this->dataUser = $this->cuti->user->name;
+        $this->kategori_id = $this->cuti->kategori_id;
+        $this->subkategori_id = $this->cuti->subkategori_id;
+        $this->alasanCuti = $this->cuti->alasan;
+        $this->tanggal_mulais = $this->cuti->tanggal_mulai;
+        $this->tanggal_akhirs = $this->cuti->tanggal_akhir;
+        $this->file_tanda_tangan = $this->cuti->file_ttd;
+        $this->fileBuktiCuti = $this->cuti->file_bukti;
+
+        // Tampilkan modal edit
+        $this->showModal = true;
+    }
 
     public function updateCuti()
     {
@@ -147,7 +150,7 @@ class TableRiwayatPengajuanCutiUser extends Component
             'file_tanda_tangan.file' => 'File bukti cuti harus dalam format yang valid!',
             'file_tanda_tangan.mimes' => 'File bukti cuti harus dalam format PNG!',
         ]);
-        
+
         // Simpan data cuti ke database
         $start = Carbon::parse($this->tanggal_mulais);
         $end = Carbon::parse($this->tanggal_akhirs);
@@ -209,9 +212,9 @@ class TableRiwayatPengajuanCutiUser extends Component
             $namaSubkategori = $subkategori->nama_subkategoris;
         }
 
-        if ($namaKategori === 'Cuti Tahunan'){
+        if ($namaKategori === 'Cuti Tahunan') {
             $templatePath = public_path('templates/surat_cuti_tahunan.docx');
-        } elseif($namaSubkategori === 'Cuti Melahirkan') {
+        } elseif ($namaSubkategori === 'Cuti Melahirkan') {
             $templatePath = public_path('templates/surat_cuti_melahirkan.docx');
         } elseif ($namaSubkategori === 'Cuti Sakit') {
             $templatePath = public_path('templates/surat_cuti_sakit.docx'); // Ubah path sesuai dengan lokasi template laporan Anda
@@ -242,13 +245,13 @@ class TableRiwayatPengajuanCutiUser extends Component
         $templateProcessor->setValue('kategori_cuti', $namaKategori);
         $templateProcessor->setValue('subkategori_cuti', $namaSubkategori);
         $templateProcessor->setImageValue('tanda_tangan', [
-            'path' => 'storage/foto_ttd_guru/' .$cuti->file_ttd,
+            'path' => 'storage/foto_ttd_guru/' . $cuti->file_ttd,
             'width' => 150,
             'height' => 75,
             'ratio' => false,
         ]);
         $templateProcessor->setImageValue('tanda_tangan_kpsekolah', [
-            'path' => 'storage/foto_ttd_guru/'.$cuti->file_ttd_kepsek,
+            'path' => 'storage/foto_ttd_guru/' . $cuti->file_ttd_kepsek,
             'width' => 150,
             'height' => 75,
             'ratio' => false,
@@ -267,7 +270,7 @@ class TableRiwayatPengajuanCutiUser extends Component
         $templateProcessor->setValue('nip_kepalaSekolah', $leader->nip);
         // Tambahkan penyesuaian lain sesuai dengan atribut yang ada dalam template laporan
 
-        $filename = 'laporan_cuti_guru_' .$cuti->user->name .'_'. $namaSubkategori . '.docx';
+        $filename = 'laporan_cuti_guru_' . $cuti->user->name . '_' . $namaSubkategori . '.docx';
         $templateProcessor->saveAs($filename);
 
         return Response::download($filename)->deleteFileAfterSend(true);

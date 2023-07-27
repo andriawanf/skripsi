@@ -23,9 +23,9 @@
     @livewireStyles
 </head>
 
-<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white overflow-x-hidden">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -34,13 +34,13 @@
     <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Hallo, {{ Auth::user()->name }}👋</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Selamat datang di <span
+            <h1 class="text-2xl font-semibold text-gray-900 font-poppins">Hallo, {{ Auth::user()->name }}👋</h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">Selamat datang di <span
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari</p>
         </div>
 
-        <div class="mb-9 flex justify-center w-full space-x-2">
-            <div class="grid grid-cols-2 gap-2 w-full">
+        <div class="flex justify-center w-full space-x-2 mb-9">
+            <div class="grid w-full grid-cols-2 gap-2">
                 <livewire:card.card-sisa-cuti-user />
                 <livewire:card.card-riwayat-cuti-user />
                 <livewire:card.card-ajukan-cuti-user />
@@ -50,7 +50,7 @@
 
         <div class="font-poppins">
 
-            <div class="sm:hidden block">
+            <div class="block sm:hidden">
                 <livewire:card.card-list-riwayat-cuti-user />
             </div>
             <div class="hidden sm:block">

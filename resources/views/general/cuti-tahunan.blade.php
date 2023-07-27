@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cuti Tahunan</title>
+    <title>Pengajuan Cuti</title>
     {{-- vite --}}
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
@@ -24,9 +24,9 @@
     @livewireStyles
 </head>
 
-<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white overflow-x-hidden">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -39,7 +39,7 @@
                 class="flex items-center w-full p-4 text-black bg-[#8AC054] bg-opacity-30 rounded-lg shadow mb-6"
                 role="alert">
                 <div
-                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black rounded-lg bg-white/25">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -65,10 +65,10 @@
         @endif
         @if (session()->has('error'))
             <div id="toast-default"
-                class="flex items-center w-full p-4 text-black bg-red-600/25 rounded-lg shadow mb-6"
+                class="flex items-center w-full p-4 mb-6 text-black rounded-lg shadow bg-red-600/25"
                 role="alert">
                 <div
-                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-white/25 rounded-lg">
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black rounded-lg bg-white/25">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -93,8 +93,8 @@
             </div>
         @endif
         <div class="mb-6">
-            <h1 class="font-poppins font-semibold text-lg text-gray-900">Pengajuan Cuti Tahunan</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Isilah form pengajuan cuti tahunan guru ini
+            <h1 class="text-lg font-semibold text-gray-900 font-poppins">Form Pengajuan Cuti </h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">Isilah form pengajuan cuti guru/karyawan ini
                 dengan baik dan benar!</p>
         </div>
 

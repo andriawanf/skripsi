@@ -21,9 +21,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @livewireStyles
 </head>
-<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white overflow-x-hidden">
     {{-- loading spinner --}}
-    <div id="loading-spinner" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+    <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
     </div>
 
@@ -32,13 +32,13 @@
     <main class="my-6 sm:ml-64" id="content" style="display: none">
         <livewire:layout.header />
         <div class="mb-6 sm:hidden">
-            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Hallo, {{ Auth::user()->name }}👋</h1>
-            <p class="font-poppins font-medium text-sm text-gray-900 mt-1">Selamat datang di <span
+            <h1 class="text-2xl font-semibold text-gray-900 font-poppins">Hallo, {{ Auth::user()->name }}👋</h1>
+            <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">Selamat datang di <span
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari</p>
         </div>
-        <div class="mb-12 flex justify-center w-full gap-3 h-fit">
-            <div class="flex flex-col gap-3 w-full">
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+        <div class="flex justify-center w-full gap-3 mb-12 h-fit">
+            <div class="flex flex-col w-full gap-3">
+                <div class="grid w-full grid-cols-2 gap-3 lg:grid-cols-3">
                     <livewire:card.cardjumlah-guru />
                     <livewire:card.card-jumlah-pengajuan-cuti-guru />
                     <livewire:card.card-cuti-pending />
