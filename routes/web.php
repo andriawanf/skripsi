@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/riwayat-cuti-guru', [AdminController::class, 'riwayatCutiGuru'])->name('riwayat-cuti-guru');
     Route::get('/Tambah-subkategori', [AdminController::class, 'showTambahSubkategori'])->name('tambah-subkategori');
     Route::post('/tambah-subkategori', [AdminController::class, 'storeSubkategori'])->name('store-data-subkategori');
+    Route::post('/tambah-subkategori/{id}', [AdminController::class, 'updateSubkategori'])->name('update-data-subkategori');
     Route::get('/tambah-kategori', [AdminController::class, 'showTambahKategori'])->name('tambah-kategori');
     Route::post('/tambah-kategori', [AdminController::class, 'storeKategori'])->name('store-data-kategori');
     // Route::get('/edit-kategori/edit/{id}', [AdminController::class, 'editKategori'])->name('edit-data-kategori');

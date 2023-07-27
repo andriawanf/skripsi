@@ -99,6 +99,16 @@ class AdminController extends Controller
         return redirect()->route('tambah-subkategori')->with(['message' => 'Kategori baru berhasil ditambahkan!']);
     }
 
+    public function updateSubkategori(Request $request, $id)
+    {   
+        $kategori = Kategori::find($request->kategori_id);
+        $subkategori = Subkategori::find($id);
+        $subkategori->update($request->all());
+
+
+        return redirect()->route('tambah-subkategori')->with(['message' => 'Sub-kategori berhasil diperbarui!']);
+    }
+
     public function exportPDF()
     {
         $cutiGuru = Cuti::whereIn('status', ['Setuju', 'Tolak'])->get(); // Ubah sesuai model dan atribut yang sesuai dengan tabel cuti guru Anda
