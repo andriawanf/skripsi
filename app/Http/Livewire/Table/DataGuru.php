@@ -16,7 +16,7 @@ class DataGuru extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $nama, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id, $userAccount;
+    public $name, $jabatan, $pangkat, $satuan_organisasi, $nip, $saldo_cuti, $foto, $guru_id, $userAccount;
     public $pagination = 10;
     public $nomor = 1;
 
@@ -53,7 +53,7 @@ class DataGuru extends Component
 
     private function resetInputFields()
     {
-        $this->nama = '';
+        $this->name = '';
         $this->nip = '';
         $this->jabatan = '';
         $this->pangkat = '';
@@ -70,7 +70,7 @@ class DataGuru extends Component
     {
         $gurus = User::findOrFail($id);
         $this->guru_id = $gurus->id;
-        $this->nama = $gurus->name;
+        $this->name = $gurus->name;
         $this->nip = $gurus->nip;
         $this->jabatan = $gurus->jabatan;
         $this->pangkat = $gurus->pangkat;
@@ -84,7 +84,7 @@ class DataGuru extends Component
         // validasi form
         // $this = $this->validate();
         $this->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'nip' => 'required|min:12',
             'jabatan' => 'required',
             'pangkat' => 'required',
@@ -95,7 +95,7 @@ class DataGuru extends Component
 
         $guru = User::findOrFail($this->guru_id);
         $guru->update([
-            'nama' => $this->nama,
+            'name' => $this->name,
             'nip' => $this->nip,
             'jabatan' => $this->jabatan,
             'pangkat' => $this->pangkat,

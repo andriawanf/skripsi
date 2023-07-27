@@ -1,6 +1,6 @@
 <form action="">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
-        <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
+    <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 table-auto dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -41,10 +41,10 @@
                         </td>
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
                             @if ($item->foto == 'images/logo.png')
-                                <img class="w-10 h-10 object-cover rounded-full" src="{{ url('/' . $item->foto) }}"
+                                <img class="object-cover w-10 h-10 rounded-full" src="{{ url('/' . $item->foto) }}"
                                     alt="Jese image">
                             @else
-                                <img class="w-10 h-10 object-cover rounded-full"
+                                <img class="object-cover w-10 h-10 rounded-full"
                                     src="{{ asset('storage/foto-profil/' . $item->foto) }}" alt="foto Profil">
                             @endif
                         </td>
@@ -70,7 +70,7 @@
                         <td class="px-6 py-4 text-base font-semibold text-gray-900">
                             {{ $item->email }}
                         </td>
-                        <td class="px-6 py-4 flex flex-row gap-3">
+                        <td class="flex flex-row gap-3 px-6 py-4">
                             <!-- Modal toggle -->
                             <button wire:click='edit({{ $item->id }})' type="button"
                                 data-modal-target="editUserModal" data-modal-show="editUserModal"
@@ -82,13 +82,13 @@
                 @endforeach
             </tbody>
         </table>
-        <nav class="flex items-center justify-between py-4 px-4 w-full">
+        <nav class="flex items-center justify-between w-full px-4 py-4">
             <div class="flex items-center justify-between w-full">
                 <div class="flex">
                     <div class="flex justify-start">
                         <!-- Tombol Sebelumnya -->
                         @if ($users->onFirstPage())
-                            <span class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                            <span class="inline-flex items-center px-4 py-2 text-xs font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed md:text-sm">
                                 Sebelumnya
                             </span>
                         @else
@@ -107,7 +107,7 @@
                                 @if ($i == $users->currentPage())
                                     <span class="px-4 py-2 text-white text-xs md:text-sm bg-[#8AC054] rounded-lg">{{ $i }}</span>
                                 @else
-                                    <button wire:click.prevent="gotoPage({{ $i }})" class="px-4 py-2 text-gray-500 text-xs md:text-sm bg-gray-200 rounded-lg hover:bg-gray-300">{{ $i }}</button>
+                                    <button wire:click.prevent="gotoPage({{ $i }})" class="px-4 py-2 text-xs text-gray-500 bg-gray-200 rounded-lg md:text-sm hover:bg-gray-300">{{ $i }}</button>
                                 @endif
                             @endfor
                         @endif
@@ -122,7 +122,7 @@
                                 Selanjutnya
                             </button>
                         @else
-                            <span class="inline-flex items-center px-4 py-2 text-xs md:text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed">
+                            <span class="inline-flex items-center px-4 py-2 text-xs font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed md:text-sm">
                                 Selanjutnya
                             </span>
                         @endif
@@ -133,7 +133,7 @@
         <!-- Edit user modal -->
         <div id="editUserModal" tabindex="-1" aria-hidden="true" wire:ignore.self
             class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
-            <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-lg">
+            <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-xl">
                 <!-- Modal content -->
                 <form class="relative" >
                     {{-- <input type="hidden" wire:model="guru_id"> --}}
@@ -160,10 +160,10 @@
                                 <label for="nama"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">nama
                                     Pengguna</label>
-                                <input type="text" wire:model='nama'
+                                <input type="text" wire:model='name'
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Nama pengguna">
-                                @error('nama')
+                                @error('name')
                                     <span class="text-red-700">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -204,14 +204,14 @@
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="1 - 12">
                             </div>
-                            <div class="col-span-6 sm:col-span-6">
+                            {{-- <div class="col-span-6 sm:col-span-6">
                                 <label for="foto"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
                                     Profil</label>
                                 <input wire:model='foto'
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 @error('foto') is-invalid @enderror"
                                     id="foto" type="file">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!-- Modal footer -->

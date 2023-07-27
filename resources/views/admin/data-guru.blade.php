@@ -24,7 +24,7 @@
     @livewireStyles
 </head>
 
-<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white">
+<body class="px-3 bg-[#F4F6F9] font-poppins selection:bg-[#8AC054] selection:text-white overflow-x-hidden">
     {{-- loading spinner --}}
     <div id="loading-spinner" class="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <div class="square-circle-5"></div>
