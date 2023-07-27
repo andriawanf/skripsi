@@ -10,11 +10,11 @@
         </svg>
     </button>
 
-    <div class="flex flex-row justify-center items-center space-x-3 p-2 mt-2 sm:hidden">
+    <div class="flex flex-row items-center justify-center p-2 mt-2 space-x-3 sm:hidden">
         {{-- notifikasi --}}
-        <button type="button" class="relative inline-flex items-center text-sm font-medium text-center text-white mr-2"
+        <button type="button" class="relative inline-flex items-center mr-2 text-sm font-medium text-center text-white"
             data-popover-target="data-notifikasi">
-            <i class='bx bxs-bell bx-sm text-gray-900'></i>
+            <i class='text-gray-900 bx bxs-bell bx-sm'></i>
             <span class="sr-only">Notifications</span>
             <div
                 class="absolute inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-600 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
@@ -26,18 +26,18 @@
             </div>
         </button>
         <div data-popover id="data-notifikasi" role="tooltip"
-            class="absolute z-10 invisible w-96 font-poppins font-medium text-sm text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+            class="absolute z-10 invisible text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 w-96 font-poppins dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
             <div class="p-3">
                 <ul class="space-y-4">
                     @forelse ($notifications as $notification)
-                        <div class="flex flex-row space-x-2 justify-between items-baseline">
-                            <li class="notification border-b border-gray-300 pb-2 w-full">
+                        <div class="flex flex-row items-baseline justify-between space-x-2">
+                            <li class="w-full pb-2 border-b border-gray-300 notification">
                                 {{ $notification->data['message'] }}</li>
                             <button wire:click="markAsRead('{{ $notification->id }}')"
-                                class="px-3 py-2 w-fit bg-red-600 hover:bg-red-800 rounded-lg text-medium text-white">Baca</button>
+                                class="px-3 py-2 text-white bg-red-600 rounded-lg w-fit hover:bg-red-800 text-medium">Baca</button>
                         </div>
                     @empty
-                        <li class="notification border-b border-gray-300 pb-2 w-full text-center">Tidak ada notifikasi
+                        <li class="w-full pb-2 text-center border-b border-gray-300 notification">Tidak ada notifikasi
                             baru untuk anda</li>
                     @endforelse
 
@@ -50,13 +50,13 @@
         {{-- foto profil user --}}
         @if (auth()->user()->foto == 'images/logo.png')
                 <img src="{{ url('/' . auth()->user()->foto) }}" alt="foto profile"
-                    class="w-10 h-10 rounded-full object-cover" data-popover-target="foto-profil-user">
+                    class="object-cover w-10 h-10 rounded-full" data-popover-target="foto-profil-user">
             @else
                 <img src="{{ asset('storage/foto-profil/' . auth()->user()->foto) }}" alt="foto profile"
-                    class="w-10 h-10 rounded-full object-cover" data-popover-target="foto-profil-user">
+                    class="object-cover w-10 h-10 rounded-full" data-popover-target="foto-profil-user">
             @endif
             <div data-popover id="foto-profil-user" role="tooltip"
-                class="absolute z-10 invisible inline-block w-44 font-poppins font-medium text-sm text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                class="absolute z-10 invisible inline-block text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 w-44 font-poppins dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
                 <div class="p-3">
                     <ul class="space-y-4">
                         <li>
@@ -70,7 +70,7 @@
                         <li>
                             <form action="{{ route('logout') }}" method="GET">
                                 <button
-                                    class="px-3 py-2 w-full bg-red-600 hover:bg-red-800 rounded-lg text-medium text-white">Keluar</button>
+                                    class="w-full px-3 py-2 text-white bg-red-600 rounded-lg hover:bg-red-800 text-medium">Keluar</button>
                             </form>
                         </li>
                     </ul>
@@ -81,14 +81,14 @@
 </div>
 
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 font-poppins flex flex-col justify-between px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 shadow-md border-r border-gray-200"
+    class="fixed top-0 left-0 z-40 flex flex-col justify-between w-64 h-screen px-3 py-4 overflow-y-auto transition-transform -translate-x-full border-r border-gray-200 shadow-md sm:translate-x-0 font-poppins bg-gray-50 dark:bg-gray-800"
     aria-label="Sidebar">
     <div class="h-full">
         <a href="#" class="flex flex-col pl-2.5 pb-5 border-b">
             <h1 class="text-3xl font-bold text-[#8AC054]">CIGU</h1>
-            <p class="font-medium text-xs">Website Pengajuan Cuti Guru</p>
+            <p class="text-xs font-medium">Website Pengajuan Cuti Guru</p>
         </a>
-        <ul class="space-y-4 font-medium pt-5 text-xs">
+        <ul class="pt-5 space-y-4 text-xs font-medium">
             @if (Auth::user()->role == 'user')
                 <li class="{{ '/' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('home') }}"
@@ -143,7 +143,7 @@
                 </li>
                 <li>
                     <button type="button"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-[#F4F6F9]"
+                        class="flex items-center w-full p-2 text-gray-900 rounded-lg group hover:bg-[#F4F6F9] group"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                         <img src="{{ url('images/calendar.svg') }}" alt="pengajuan cuti">
                         <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Data Cuti</span>
@@ -185,6 +185,6 @@
         </ul>
     </div>
     <form action="{{ route('logout') }}" method="GET">
-        <button class="px-3 py-2 w-full bg-red-600 hover:bg-red-800 rounded-lg text-medium text-white">Keluar</button>
+        <button class="w-full px-3 py-2 text-white bg-red-600 rounded-lg hover:bg-red-800 text-medium">Keluar</button>
     </form>
 </aside>
