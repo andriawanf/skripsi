@@ -23,7 +23,9 @@ class DataGuru extends Component
     public function render()
     {
         if (Auth::user()->role == 'admin') {
-            $users = User::where('role', 'user')->paginate($this->pagination);
+            $users = User::where('role', 'user')
+                ->orWhere('role', 'kepala_sekolah')
+                ->paginate($this->pagination);
         } elseif (Auth::user()->role == 'kepala_sekolah') {
             $users = User::where('role', 'admin')
                 ->orWhere('role', 'user')

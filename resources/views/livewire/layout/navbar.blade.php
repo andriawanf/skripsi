@@ -141,6 +141,8 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Cuti Guru</span>
                     </a>
                 </li>
+                @if (Auth::user()->role == 'admin')
+                    
                 <li>
                     <button type="button"
                         class="flex items-center w-full p-2 text-gray-900 rounded-lg group hover:bg-[#F4F6F9] group"
@@ -167,6 +169,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <li  class="{{ 'data-guru' == request()->path() ? 'active' :  '' }} rounded-xl">
                     <a href="{{ route('data-guru') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#F4F6F9]">

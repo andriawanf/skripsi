@@ -150,6 +150,10 @@
                             <td class="px-6 py-4 line-clamp-5 w-64">
                                 {{ $item->alasan }}
                             </td>
+                            <td class="px-6 py-4 ">
+                                <a href="{{ asset('storage/file_bukti/' . $item->file_bukti) }}"
+                                    class="text-blue-500 hover:text-blue-700 hover:underline">{{ $item->file_bukti }}</a>
+                            </td>
                             <td class="px-6 py-4">
                                 @if ($item->status === 'Pending')
                                     <p class="text-orange-500">{{ $item->status }}</p>
