@@ -1,7 +1,8 @@
 <header class="hidden sm:block sm:mb-7">
     <div class="flex flex-row items-start justify-between space-x-20">
         <div>
-            <h1 class="text-2xl font-semibold text-gray-900 capitalize font-poppins">Hallo, {{ Auth::user()->name }} 👋</h1>
+            <h1 class="text-2xl font-semibold text-gray-900 capitalize font-poppins">Hallo, {{ Auth::user()->name }} 👋
+            </h1>
             <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">Selamat datang di <span
                     class="text-[#8AC054]">CIGU</span> - webiste pengajuan cuti guru Mts At-Tarbiyah Gunungsari
             </p>
@@ -18,7 +19,7 @@
                     @if ($unreadNotificationsCount > 0)
                         <span class="badge animate-pulse">{{ $unreadNotificationsCount }}</span>
                     @else
-                    <span class="badge">0</span>
+                        <span class="badge">0</span>
                     @endif
                 </div>
             </button>
@@ -27,13 +28,15 @@
                 <div class="p-3">
                     <ul class="space-y-4">
                         @forelse ($notifications as $notification)
-                        <div class="flex flex-row items-baseline justify-between space-x-2">
-                            <li class="w-full pb-2 border-b border-gray-300 notification">{{ $notification->data['message'] }}</li>
-                            <button wire:click="markAsRead('{{ $notification->id }}')"
-                                class="px-3 py-2 text-white bg-red-600 rounded-lg w-fit hover:bg-red-800 text-medium">Baca</button>
-                        </div>
+                            <div class="flex flex-row items-baseline justify-between space-x-2">
+                                <li class="w-full pb-2 border-b border-gray-300 notification">
+                                    {{ $notification->data['message'] }}</li>
+                                <button wire:click="markAsRead('{{ $notification->id }}')"
+                                    class="px-3 py-2 text-white bg-red-600 rounded-lg w-fit hover:bg-red-800 text-medium">Baca</button>
+                            </div>
                         @empty
-                            <li class="w-full pb-2 text-center border-b border-gray-300 notification">Tidak ada notifikasi baru untuk anda</li>
+                            <li class="w-full pb-2 text-center border-b border-gray-300 notification">Tidak ada
+                                notifikasi baru untuk anda</li>
                         @endforelse
 
                     </ul>
@@ -42,10 +45,10 @@
             </div>
             @if (auth()->user()->foto == 'images/logo.png')
                 <img src="{{ url('/' . auth()->user()->foto) }}" alt="foto profile"
-                    class="object-cover w-10 h-10 rounded-full" data-popover-target="user-profile">
+                    class="object-cover w-10 h-10 rounded-lg" data-popover-target="user-profile">
             @else
                 <img src="{{ asset('storage/foto-profil/' . auth()->user()->foto) }}" alt="foto profile"
-                    class="object-cover w-10 h-10 rounded-full" data-popover-target="user-profile">
+                    class="object-cover w-10 h-10 rounded-lg" data-popover-target="user-profile">
             @endif
             <div data-popover id="user-profile" role="tooltip"
                 class="absolute z-10 invisible inline-block text-sm font-medium text-gray-900 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 w-44 font-poppins dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">

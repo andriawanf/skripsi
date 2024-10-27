@@ -1,12 +1,12 @@
 <form action="" class="font-poppins">
 
     @if (Request::is('riwayat-pengajuan-cuti'))
-        <div class="mb-3 lg:mb-6 flex flex-col lg:flex-row gap-4 justify-between items-center lg:items-end">
-            <div class="flex flex-col justify-center items-center sm:items-start">
-                <h1 class="font-poppins font-semibold text-lg text-gray-900">Riwayat Pengajuan Cuti</h1>
-                <p class="font-poppins font-medium text-sm text-gray-900 mt-1">List dari riwayat pengajuan cuti anda</p>
+        <div class="flex flex-col items-center justify-between gap-4 mb-3 lg:mb-6 lg:flex-row lg:items-end">
+            <div class="flex flex-col items-start justify-center sm:items-start">
+                <h1 class="text-lg font-semibold text-gray-900 font-poppins">Riwayat Pengajuan Cuti</h1>
+                <p class="mt-1 text-sm font-medium text-gray-900 font-poppins">List dari riwayat pengajuan cuti anda</p>
             </div>
-            <div class="flex flex-row items-center gap-3 lg:gap-4 mb-3">
+            <div class="flex flex-row items-center gap-3 mb-3 lg:gap-4">
                 <div
                     class="px-4 py-2 bg-gradient-to-r from-[#B4E080] to-[#8AC054] hover:bg-gradient-to-br text-sm font-medium rounded-lg flex flex-row space-x-2 justify-center items-center">
                     <i class='bx bxs-printer'></i>
@@ -24,7 +24,7 @@
                             </svg>
                         </div>
                         <input type="search" wire:model='searchTerm'
-                            class="block w-full lg:w-80 p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 bg-gray-50 focus:ring-green-500 focus:border-green-500"
                             placeholder="Search Mockups, Logos...">
                     </div>
                 </div>
@@ -32,16 +32,16 @@
         </div>
     @else
         <div class="flex justify-between items-center w-full mb-3 text-[10px]">
-            <h1 class="font-semibold text-lg">Riwayat Pengajuan Cuti</h1>
+            <h1 class="text-lg font-semibold">Riwayat Pengajuan Cuti</h1>
             <a href="{{ route('riwayat-cuti') }}"
-                class="flex gap-1 justify-center items-center text-gray-400 hover:text-gray-900">
-                <p class="font-normal text-xs">Lihat</p>
+                class="flex items-center justify-center gap-1 text-gray-400 hover:text-gray-900">
+                <p class="text-xs font-normal">Lihat</p>
                 <i class='bx bx-right-arrow-alt'></i>
             </a>
         </div>
     @endif
-    <div class="relative w-full overflow-x-auto shadow-md rounded-lg sm:rounded-lg">
-        <table class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
+    <div class="relative w-full overflow-x-auto rounded-lg shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 table-auto dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -108,7 +108,7 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->durasi }} Hari
                             </td>
-                            <td class="px-6 py-4 line-clamp-5 font-medium text-gray-900 w-64 max-w-lg">
+                            <td class="w-64 max-w-lg px-6 py-4 font-medium text-gray-900 line-clamp-5">
                                 {{ $item->alasan }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -123,11 +123,11 @@
                             @if (auth()->user()->role === 'user')
                                 @if ($item->status == 'Pending' || $item->status == 'Konfirmasi')
                                     <td
-                                        class="font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-col gap-2">
+                                        class="flex flex-col gap-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <button wire:click.prevent='editCuti({{ $item->id }})'
                                             class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Edit</button>
                                         <button wire:click.prevent='confirmDelete({{ $item->id }})'
-                                            class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline">Hapus</button>
+                                            class="px-4 py-2 font-medium text-white bg-red-600 rounded-lg hover:underline">Hapus</button>
                                     </td>
                                 @else
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -140,7 +140,7 @@
                     @endforeach
                 @else
                     <td scope="col" colspan="8"
-                        class="py-6 font-medium w-full text-center text-gray-900 whitespace-nowrap dark:text-white">
+                        class="w-full py-6 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                         Tidak ada riwayat pengajuan cuti
                     </td>
                 @endif
@@ -148,7 +148,7 @@
         </table>
     </div>
     @if (Request::is('riwayat-pengajuan-cuti'))
-        <nav class="flex items-center justify-between py-4 px-4 w-full">
+        <nav class="flex items-center justify-between w-full px-4 py-4">
             <div class="flex items-center justify-between w-full">
                 <div class="flex">
                     <div class="flex justify-start">
@@ -206,7 +206,7 @@
 
     <!-- Main modal Edit -->
     @if ($showModal)
-        <div class="fixed z-50 inset-0 overflow-y-auto">
+        <div class="fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <!-- Overlay -->
                 <div class="fixed inset-0 transition-opacity">
@@ -215,14 +215,14 @@
 
                 <!-- Modal Content -->
                 <div
-                    class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                    class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white shadow-xl rounded-xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
                     <!-- Modal Body -->
                     <div class="px-4 py-6 sm:p-8">
-                        <h1 class="text-lg sm:text-2xl font-semibold font-poppins pb-3 border-b border-gray-300">Edit
+                        <h1 class="pb-3 text-lg font-semibold border-b border-gray-300 sm:text-2xl font-poppins">Edit
                             data cuti</h1>
                         <!-- Form Edit -->
                         <form wire:submit.prevent="updateCuti">
-                            <div class="mb-6 pt-6">
+                            <div class="pt-6 mb-6">
                                 <label for="kategori"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                     Guru</label>
@@ -289,7 +289,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload File
                                     Bukti</label>
                                 <input wire:model.defer='fileBuktiCuti' id="fileBuktiCuti" name="fileBuktiCuti"
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    class="block w-full text-sm text-gray-900 bg-white border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     value="{{ asset('storage/file_bukti/' . $cuti->file_bukti) }}" id="foto"
                                     type="file">
                                 @error('fileBuktiCuti')
@@ -303,7 +303,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Tanda
                                     Tangan</label>
                                 <input wire:model='file_tanda_tangan'
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    class="block w-full text-sm text-gray-900 bg-white border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     id="foto" type="file">
                                 @error('file_tanda_tangan')
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh,
@@ -329,12 +329,12 @@
                                 <button wire:click.prevent="updateCuti"
                                     class="px-4 py-2 bg-gradient-to-tr from-[#73B1F4] to-[#4B89DA] rounded-lg font-medium text-white hover:underline">Simpan
                                     Perubahan</button>
-                                <button class="px-4 py-2 bg-red-600 rounded-lg font-medium text-white hover:underline"
+                                <button class="px-4 py-2 font-medium text-white bg-red-600 rounded-lg hover:underline"
                                     wire:click.prevent="$set('showModal', false)">Batal</button>
                             </div>
                         </form>
                         <!-- Add the following class to make the modal scrollable -->
-                        <div class="max-h-80 overflow-y-auto">
+                        <div class="overflow-y-auto max-h-80">
                             <!-- Modal content that can be scrolled -->
                         </div>
 

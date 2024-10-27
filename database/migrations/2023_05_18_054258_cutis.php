@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('kategori_id');
-            $table->unsignedBigInteger('subkategori_id');
+            $table->unsignedBigInteger('subkategori_id')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_akhir');
             $table->text('alasan');
